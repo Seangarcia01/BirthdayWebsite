@@ -1,9 +1,9 @@
 const messages = [
-  "Happy Birthday!",
-  "I love you ❤️",
-  "You make me smile 😊",
-  "To many more memories 🎉",
-  "You're my favorite person 💕"
+  "Happy Birthday 💜",
+  "You're amazing",
+  "I love you",
+  "Forever yours 💫",
+  "You're my heart 💖"
 ];
 
 const container = document.getElementById('message-container');
@@ -13,13 +13,14 @@ function spawnMessage() {
   msg.className = 'message';
   msg.textContent = messages[Math.floor(Math.random() * messages.length)];
 
-  // random horizontal position
-  msg.style.left = Math.random() * 80 + 10 + '%';
-  msg.style.top = '100%';
+  // Position in the center horizontally
+  msg.style.left = '50%';
+  msg.style.transform = 'translateX(-50%)'; // center align text
+
+  msg.style.top = '0%'; // start at top
 
   container.appendChild(msg);
-
   msg.addEventListener('animationend', () => msg.remove());
 }
 
-setInterval(spawnMessage, 800); // message every 0.8s
+setInterval(spawnMessage, 1000);
