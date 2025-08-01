@@ -28,16 +28,12 @@ html, body {
 
 /* Style of individual floating messages */
 .message {
-  position: absolute;
-  white-space: nowrap;
-  font-size: 1.6rem;
-  color: #e6ccff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.3); /* Optional: remove if unwanted */
-  padding: 6px 12px;
-  border-radius: 10px;
-  animation: floatDown 6s ease-in forwards;
+  background: yellow;
+  color: black;
+  font-weight: bold;
+  z-index: 99;
 }
+
 
 /* Message float animation */
 @keyframes floatDown {

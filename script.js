@@ -8,7 +8,7 @@ const messages = [
 
 const container = document.getElementById('message-container');
 
-// Track horizontal slots to reduce overlap
+// Horizontal slot control
 const usedSlots = new Set();
 const maxSlots = 10;
 
@@ -21,7 +21,7 @@ function getAvailableSlot() {
   } while (usedSlots.has(slot));
 
   usedSlots.add(slot);
-  setTimeout(() => usedSlots.delete(slot), 4000); // free slot after ~4s
+  setTimeout(() => usedSlots.delete(slot), 4000); // release slot after animation
   return slot;
 }
 
@@ -29,18 +29,17 @@ function spawnMessage() {
   const slot = getAvailableSlot();
   if (slot === null) return;
 
-  console.log("Spawning message at slot:", slot); // ← Add this
-
   const msg = document.createElement('div');
   msg.className = 'message';
   msg.textContent = messages[Math.floor(Math.random() * messages.length)];
 
-  const slotWidthPercent = 100 / maxSlots;
-  msg.style.left = `${slot * slotWidthPercent + slotWidthPercent / 4}%`;
+  const slotWidth = 100 / maxSlots;
+  msg.style.left = `${slot * slotWidth + slotWidth / 4}%`; // center in slot
   msg.style.top = '-10%';
 
   container.appendChild(msg);
   msg.addEventListener('animationend', () => msg.remove());
 }
 
-setInterval(spawnMessage, 600); // Spawn frequently but not too fast
+// Spawn every 600ms
+setInterval(spawnMessage, 600);
