@@ -1,14 +1,14 @@
 const messages = [
-  "I love you \u{1F49C}",         // 💜
-  "Forever \u{1F496}",            // 💖
-  "My heart \u{1F498}",           // 💘
-  "My joy \u{1F4AB}",             // 💫
-  "You're my person \u{1F339}",   // 🌹
-  "You + Me \u{1F491}",           // 💑
-  "Happy Birthday \u{1F389}",     // 🎉
-  "Beautiful soul \u{2728}",      // ✨
-  "Together always \u{1F54A}",    // 🕊️
-  "My everything \u{2764}",       // ❤️
+  "I love you",
+  "Forever",
+  "My heart",
+  "My joy",
+  "You're my person",
+  "You + Me",
+  "Happy Birthday",
+  "Beautiful soul",
+  "Together always",
+  "My everything"
 ];
 
 
