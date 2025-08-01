@@ -28,11 +28,14 @@ html, body {
 
 /* Style of individual floating messages */
 .message {
-  background: yellow;
-  color: black;
-  font-weight: bold;
-  z-index: 99;
+  position: absolute;
+  text-align: center;
+  font-size: 1.6rem;
+  color: #e6ccff;
+  line-height: 1.5rem;
+  animation: floatDown 6s ease-in forwards;
 }
+
 
 
 /* Message float animation */

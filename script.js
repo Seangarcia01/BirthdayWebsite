@@ -1,16 +1,19 @@
 const messages = [
   "Happy Birthday 💜",
-  "You're beautiful 💖",
-  "Forever and always 💫",
-  "My favorite person 🥰",
-  "I love you so much ❤️"
+  "I love you 💖",
+  "Forever 💫",
+  "My sunshine ☀️",
+  "You're amazing 🌟",
+  "Beautiful soul ❤️",
+  "You & Me 💕",
+  "You're special 🎁"
 ];
 
 const container = document.getElementById('message-container');
 
-// Horizontal slot control
-const usedSlots = new Set();
+// Control max horizontal slots to avoid overlaps
 const maxSlots = 10;
+const usedSlots = new Set();
 
 function getAvailableSlot() {
   if (usedSlots.size >= maxSlots) return null;
@@ -21,7 +24,7 @@ function getAvailableSlot() {
   } while (usedSlots.has(slot));
 
   usedSlots.add(slot);
-  setTimeout(() => usedSlots.delete(slot), 4000); // release slot after animation
+  setTimeout(() => usedSlots.delete(slot), 4000); // free up slot after animation
   return slot;
 }
 
@@ -31,15 +34,23 @@ function spawnMessage() {
 
   const msg = document.createElement('div');
   msg.className = 'message';
-  msg.textContent = messages[Math.floor(Math.random() * messages.length)];
 
+  // Turn text into vertical layout using <br> and <span>
+  const text = messages[Math.floor(Math.random() * messages.length)];
+  msg.innerHTML = text.split('').map(ch => `<span>${ch}</span>`).join('<br>');
+
+  // Random horizontal placement
   const slotWidth = 100 / maxSlots;
-  msg.style.left = `${slot * slotWidth + slotWidth / 4}%`; // center in slot
+  msg.style.left = `${slot * slotWidth + slotWidth / 4}%`;
   msg.style.top = '-10%';
 
   container.appendChild(msg);
-  msg.addEventListener('animationend', () => msg.remove());
+
+  // Clean up after animation
+  msg.addEventListener('animationend', () => {
+    msg.remove();
+  });
 }
 
-// Spawn every 600ms
+// Spawn new message every 600ms
 setInterval(spawnMessage, 600);
