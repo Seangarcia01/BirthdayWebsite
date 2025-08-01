@@ -1,9 +1,9 @@
 const messages = [
   "Happy Birthday 💜",
-  "You're amazing",
-  "I love you",
-  "Forever yours 💫",
-  "You're my heart 💖"
+  "I love you so much 💖",
+  "You're the light of my life ✨",
+  "To forever and always ❤️",
+  "You make every day special 🥰"
 ];
 
 const container = document.getElementById('message-container');
@@ -13,11 +13,9 @@ function spawnMessage() {
   msg.className = 'message';
   msg.textContent = messages[Math.floor(Math.random() * messages.length)];
 
-  // Position in the center horizontally
   msg.style.left = '50%';
-  msg.style.transform = 'translateX(-50%)'; // center align text
-
-  msg.style.top = '0%'; // start at top
+  msg.style.transform = 'translateX(-50%)'; // center horizontally
+  msg.style.top = '0%';
 
   container.appendChild(msg);
   msg.addEventListener('animationend', () => msg.remove());

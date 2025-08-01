@@ -3,8 +3,16 @@ html, body {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  background-color: #0d0d0d; /* deep black shade */
   font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
+  background-size: 400% 400%;
+  animation: bgPulse 20s ease infinite;
+}
+
+@keyframes bgPulse {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 #message-container {
@@ -17,26 +25,16 @@ html, body {
 .message {
   position: absolute;
   white-space: nowrap;
-  font-size: 1.8rem;
-  color: #b266ff; /* soft purple */
+  font-size: 2rem;
+  color: #e0b3ff; /* bright lavender-purple */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   opacity: 0;
   animation: floatDown 6s linear forwards;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes floatDown {
-  0% {
-    transform: translateY(-20%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
+  0%   { transform: translateY(-20%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
 }
