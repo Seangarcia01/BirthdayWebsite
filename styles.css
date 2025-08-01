@@ -1,3 +1,4 @@
+/* Fullscreen layout and animated gradient background */
 html, body {
   margin: 0;
   padding: 0;
@@ -7,34 +8,38 @@ html, body {
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
   animation: bgPulse 20s ease infinite;
-  z-index: -1000;
 }
 
+/* Gradient animation */
 @keyframes bgPulse {
-  0%, 100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
+/* Container for falling messages */
 #message-container {
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 0;
+  z-index: 10;
 }
 
+/* Style of individual floating messages */
 .message {
   position: absolute;
   white-space: nowrap;
   font-size: 1.6rem;
   color: #e6ccff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-  opacity: 0;
+  background: rgba(0, 0, 0, 0.3); /* Optional: remove if unwanted */
+  padding: 6px 12px;
+  border-radius: 10px;
   animation: floatDown 6s ease-in forwards;
-  text-orientation: upright;
-  z-index: 1;
 }
 
+/* Message float animation */
 @keyframes floatDown {
   0% {
     transform: translateY(0%);
