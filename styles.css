@@ -122,16 +122,13 @@ html, body {
   }
 }
 
-#footer-message {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 1.3rem;
+.below-message {
+  margin-top: 1rem;
+  font-size: 1.5rem;
   color: #fff;
-  z-index: 200;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
   font-weight: bold;
-  pointer-events: none;
 }
+
 
