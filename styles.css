@@ -28,16 +28,21 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 100;
+  z-index: 200; 
   gap: 1rem;
 }
 
 #main-image img {
-  width: auto;
-  height: auto;
   max-width: 60vw;
   max-height: 60vh;
-  object-fit: contain;
+  width: auto;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+  background-color: #fff;
+  margin-bottom: 1rem;
+  z-index: 200;
+    outline: 2px solid red;
 }
 
 #main-caption {
