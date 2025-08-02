@@ -94,7 +94,7 @@ setInterval(spawnMessage, 300);
 document.addEventListener("mousemove", (e) => {
   const wrapper = document.getElementById("parallax-wrapper");
 
-  const intensity = 30; // 🔥 Increase for more speed & coverage
+  const intensity = 80; // 🔥 Increase for more speed & coverage
 
   const x = (e.clientX / window.innerWidth - 0.5) * intensity;
   const y = (e.clientY / window.innerHeight - 0.5) * intensity;
