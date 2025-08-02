@@ -33,16 +33,15 @@ html, body {
 }
 
 #main-image img {
-  max-width: 60vw;
-  max-height: 60vh;
-  width: auto;
+  width: 60vw;
+  max-width: 90vw;
   height: auto;
+  max-height: 60vh;
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
   background-color: #fff;
   margin-bottom: 1rem;
   z-index: 200;
-    outline: 2px solid red;
 }
 
 #main-caption {
