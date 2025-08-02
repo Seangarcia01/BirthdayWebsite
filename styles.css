@@ -1,4 +1,4 @@
-/* Base reset and setup */
+/* Ensure full height and no spacing */
 html, body {
   margin: 0;
   padding: 0;
@@ -10,20 +10,16 @@ html, body {
   animation: bgPulse 20s ease infinite;
 }
 
-/* Background animation */
-@keyframes bgPulse {
-  0%, 100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
-}
-
-/* Parallax container movement */
+/* Make sure the parallax wrapper fills the screen */
 #parallax-wrapper {
   width: 100%;
   height: 100%;
+  position: relative;
   transition: transform 0.1s ease-out;
   will-change: transform;
 }
 
+/* Center main image + caption perfectly */
 #main-center {
   position: absolute;
   top: 50%;
