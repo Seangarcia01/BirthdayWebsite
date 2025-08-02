@@ -1,4 +1,4 @@
-/* Base setup */
+/* Reset and base setup */
 html, body {
   margin: 0;
   padding: 0;
@@ -10,33 +10,36 @@ html, body {
   animation: bgPulse 20s ease infinite;
 }
 
-/* Background pulse animation */
+/* Background animation */
 @keyframes bgPulse {
   0%, 100% { background-position: 0% 50%; }
   50%      { background-position: 100% 50%; }
 }
 
-/* Wrapper for image and any central content */
-#main-wrapper {
-  position: relative;
-  z-index: 100;
-  text-align: center;
-}
-
-/* Main center image */
-#main-image {
+/* Centered main image + message container */
+#main-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
   z-index: 100;
 }
 
-#main-image img {
+#main-image {
   max-width: 60vw;
   max-height: 60vh;
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+.below-message {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+  font-weight: bold;
 }
 
 /* Message container */
@@ -62,28 +65,22 @@ html, body {
   will-change: transform, opacity, filter;
 }
 
-.message span {
-  display: inline-block;
-  line-height: 1.4rem;
-  font-weight: bold;
-}
-
-/* Floating decorative images */
+/* Floating images */
 .floating-image {
   position: absolute;
-  width: 150px;
-  height: 150px;
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+  animation: floatImage 8s ease-in-out forwards;
+  opacity: 0.5;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 12px;
-  opacity: 0.6;
-  z-index: 5;
-  pointer-events: none;
-  will-change: transform, opacity, filter;
-  animation: floatImage 8s ease-in-out forwards;
 }
 
-
-/* Image floating animation */
+/* Animation for floating images */
 @keyframes floatImage {
   0% {
     transform: translate(0, 0) scale(var(--scale));
@@ -101,7 +98,7 @@ html, body {
   }
 }
 
-/* Floating message animation */
+/* Animation for floating messages */
 @keyframes floatAround {
   0% {
     transform: translate(0, 0) scale(1);
@@ -121,14 +118,3 @@ html, body {
     filter: blur(var(--blur));
   }
 }
-
-.below-message {
-  margin-top: 1rem;
-  font-size: 1.5rem;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-  font-weight: bold;
-}
-
-
