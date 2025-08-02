@@ -93,15 +93,25 @@ setInterval(spawnMessage, 300);
 
 document.addEventListener("mousemove", (e) => {
   const wrapper = document.getElementById("parallax-wrapper");
+  const hiddenImage = document.getElementById("hidden-image");
 
   const percentX = (e.clientX / window.innerWidth - 0.5);
   const percentY = (e.clientY / window.innerHeight - 0.5);
 
-  const rotateY = percentX * 40; // stronger horizontal rotation
-  const rotateX = -percentY * 40; // stronger vertical rotation
+  const translateX = percentX * 50;
+  const translateY = percentY * 50;
 
-  wrapper.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  wrapper.style.transform = `translate(${translateX}px, ${translateY}px)`;
+
+  // Reveal hidden image if cursor is in bottom-right corner
+  if (e.clientX > window.innerWidth * 0.85 && e.clientY > window.innerHeight * 0.85) {
+    hiddenImage.style.opacity = 1;
+  } else {
+    hiddenImage.style.opacity = 0;
+  }
 });
+
+
 
 
 
