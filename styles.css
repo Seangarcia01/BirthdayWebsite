@@ -33,25 +33,14 @@ html, body {
   z-index: 100;
 }
 
-
-/* Main image */
-#main-image {
-  max-width: 400px;
-  max-height: 400px;
-  margin: 0 auto;
-}
-
 #main-image img {
-  width: 100%;
-  height: auto;
+  max-width: 60vw;
+  max-height: 60vh;
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-  object-fit: cover;
-  display: block;
 }
 
-/* Caption below image */
-#main-caption p {
+#main-caption {
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #fff;
