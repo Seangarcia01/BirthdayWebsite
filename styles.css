@@ -1,4 +1,4 @@
-/* Reset and base */
+/* Base reset and setup */
 html, body {
   margin: 0;
   padding: 0;
@@ -16,54 +16,60 @@ html, body {
   50%      { background-position: 100% 50%; }
 }
 
-/* Parallax wrapper */
+/* Parallax container movement */
 #parallax-wrapper {
   width: 100%;
   height: 100%;
   transition: transform 0.1s ease-out;
   will-change: transform;
-  position: relative;
 }
 
-#main-image {
+/* Center image + caption container */
+#main-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 50;
-  width: auto;
-  height: auto;
+  text-align: center;
+  z-index: 100;
+}
+
+/* Main image */
+#main-image {
   max-width: 400px;
   max-height: 400px;
+  margin: 0 auto;
 }
 
 #main-image img {
   width: 100%;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
   object-fit: cover;
   display: block;
 }
 
 /* Caption below image */
-#main-caption {
+#main-caption p {
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #fff;
+  text-align: center;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
   font-weight: bold;
 }
 
-/* Floating message container */
+/* Message container */
 #message-container {
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 10;
+  pointer-events: none;
 }
 
-/* Messages */
+/* Floating vertical messages */
 .message {
   position: absolute;
   text-align: center;
@@ -78,22 +84,30 @@ html, body {
   will-change: transform, opacity, filter;
 }
 
-/* Floating images */
+/* Floating image container */
+#image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Floating decorative images */
 .floating-image {
   position: absolute;
   will-change: transform, opacity, filter;
   pointer-events: none;
   animation: floatImage 8s ease-in-out forwards;
   opacity: 0.5;
-  z-index: 5;
-  transition: opacity 0.3s ease;
   width: 180px;
   height: 180px;
   object-fit: cover;
   border-radius: 12px;
+  transition: opacity 0.3s ease;
 }
 
-/* Floating image animation */
+/* Animation for floating images */
 @keyframes floatImage {
   0% {
     transform: translate(0, 0) scale(var(--scale));
@@ -111,7 +125,7 @@ html, body {
   }
 }
 
-/* Floating message animation */
+/* Animation for floating messages */
 @keyframes floatAround {
   0% {
     transform: translate(0, 0) scale(1);
