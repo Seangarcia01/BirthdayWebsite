@@ -26,6 +26,7 @@ html, body {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 100;
+  gap: 1rem;
 }
 
 #main-image img {
@@ -103,14 +104,11 @@ html, body {
 }
 
 #button-container {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 20px;
-  z-index: 100;
+  justify-content: center;
 }
+
 
 #button-container button {
   padding: 15px 30px;
