@@ -14,15 +14,35 @@ const messages = [
 const container = document.getElementById('message-container');
 const imageContainer = document.getElementById('image-container');
 const noBtn = document.getElementById("no-btn");
+let noClickCount = 0;
 
-noBtn.addEventListener("click", () => {
+noBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  noClickCount++;
+
+  // Shake effect
   noBtn.classList.add("shake");
+  setTimeout(() => noBtn.classList.remove("shake"), 500);
 
-  // Remove the class after animation completes
-  setTimeout(() => {
-    noBtn.classList.remove("shake");
-  }, 500);
+  // Move to a new random position
+  const parent = noBtn.parentElement;
+  const maxX = parent.offsetWidth - noBtn.offsetWidth;
+  const maxY = parent.offsetHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = `${randomX}px`;
+  noBtn.style.top = `${randomY}px`;
+
+  // After 3 tries, start shrinking the button
+  if (noClickCount >= 3) {
+    const scale = Math.max(1 - (noClickCount - 2) * 0.1, 0.4); // Min scale 0.4
+    noBtn.style.transform = `scale(${scale})`;
+  }
 });
+
 
 const imagePaths = [
   "assets/1.jpg",

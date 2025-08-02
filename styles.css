@@ -108,9 +108,12 @@ html, body {
 
 #button-container {
   display: flex;
-  gap: 20px;
   justify-content: center;
+  align-items: center;
+  gap: 20px;
   margin-top: 2.5rem;
+  position: relative; /* Needed for absolute positioning of "No" button */
+  height: 80px; /* Ensure there's room to move around */
 }
 
 #button-container button {
