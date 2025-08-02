@@ -13,6 +13,16 @@ const messages = [
 
 const container = document.getElementById('message-container');
 const imageContainer = document.getElementById('image-container');
+const noBtn = document.getElementById("no-btn");
+
+noBtn.addEventListener("click", () => {
+  noBtn.classList.add("shake");
+
+  // Remove the class after animation completes
+  setTimeout(() => {
+    noBtn.classList.remove("shake");
+  }, 500);
+});
 
 const imagePaths = [
   "assets/1.jpg",
