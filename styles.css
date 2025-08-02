@@ -16,7 +16,14 @@ html, body {
   50%      { background-position: 100% 50%; }
 }
 
-/* Image container - high priority */
+/* Wrapper for image and any central content */
+#main-wrapper {
+  position: relative;
+  z-index: 100;
+  text-align: center;
+}
+
+/* Main center image */
 #main-image {
   position: absolute;
   top: 50%;
@@ -40,7 +47,7 @@ html, body {
   z-index: 10;
 }
 
-/* Individual message styles */
+/* Individual messages */
 .message {
   position: absolute;
   text-align: center;
@@ -55,6 +62,13 @@ html, body {
   will-change: transform, opacity, filter;
 }
 
+.message span {
+  display: inline-block;
+  line-height: 1.4rem;
+  font-weight: bold;
+}
+
+/* Floating decorative images */
 .floating-image {
   position: absolute;
   will-change: transform, opacity, filter;
@@ -69,7 +83,7 @@ html, body {
   border-radius: 12px;
 }
 
-/* Animation for image motion */
+/* Image floating animation */
 @keyframes floatImage {
   0% {
     transform: translate(0, 0) scale(var(--scale));
@@ -87,7 +101,7 @@ html, body {
   }
 }
 
-/* Floating animation */
+/* Floating message animation */
 @keyframes floatAround {
   0% {
     transform: translate(0, 0) scale(1);
