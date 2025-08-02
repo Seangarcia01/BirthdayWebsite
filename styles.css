@@ -1,4 +1,4 @@
-/* Reset and base setup */
+/* Reset and base */
 html, body {
   margin: 0;
   padding: 0;
@@ -16,7 +16,16 @@ html, body {
   50%      { background-position: 100% 50%; }
 }
 
-/* Centered main image + message container */
+/* Parallax wrapper */
+#parallax-wrapper {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  position: relative;
+}
+
+/* Main center container */
 #main-center {
   position: absolute;
   top: 50%;
@@ -26,23 +35,31 @@ html, body {
   z-index: 100;
 }
 
+/* Main image */
+#main-image {
+  max-width: 60vw;
+  max-height: 60vh;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
 #main-image img {
   width: 100%;
   height: auto;
-  max-height: 60vh;
-  border-radius: 20px;
+  display: block;
 }
 
-.below-message {
+/* Caption below image */
+#main-caption {
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #fff;
-  text-align: center;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
   font-weight: bold;
 }
 
-/* Message container */
+/* Floating message container */
 #message-container {
   position: absolute;
   width: 100%;
@@ -50,7 +67,7 @@ html, body {
   z-index: 10;
 }
 
-/* Individual messages */
+/* Messages */
 .message {
   position: absolute;
   text-align: center;
@@ -80,7 +97,7 @@ html, body {
   border-radius: 12px;
 }
 
-/* Animation for floating images */
+/* Floating image animation */
 @keyframes floatImage {
   0% {
     transform: translate(0, 0) scale(var(--scale));
@@ -98,7 +115,7 @@ html, body {
   }
 }
 
-/* Animation for floating messages */
+/* Floating message animation */
 @keyframes floatAround {
   0% {
     transform: translate(0, 0) scale(1);
@@ -117,12 +134,4 @@ html, body {
     opacity: 0;
     filter: blur(var(--blur));
   }
-}
-
-#parallax-wrapper {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.1s ease-out;
-  will-change: transform;
-  perspective: 800px;
 }
