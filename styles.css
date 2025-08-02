@@ -55,6 +55,38 @@ html, body {
   will-change: transform, opacity, filter;
 }
 
+.floating-image {
+  position: absolute;
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+  animation: floatImage 8s ease-in-out forwards;
+  opacity: 0.4;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Animation for image motion */
+@keyframes floatImage {
+  0% {
+    transform: translate(0, 0) scale(var(--scale));
+    opacity: var(--startOpacity);
+    filter: blur(var(--blur));
+  }
+  20% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(var(--scale));
+    opacity: 0;
+    filter: blur(var(--blur));
+  }
+}
+
 /* Floating animation */
 @keyframes floatAround {
   0% {
@@ -74,4 +106,16 @@ html, body {
     opacity: 0;
     filter: blur(var(--blur));
   }
+}
+
+#footer-message {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #fff;
+  z-index: 200;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  font-weight: bold;
 }
