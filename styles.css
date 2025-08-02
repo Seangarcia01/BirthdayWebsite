@@ -4,19 +4,19 @@ html, body {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
   animation: bgPulse 20s ease infinite;
 }
 
-/* Background pulse */
+/* Background pulse animation */
 @keyframes bgPulse {
   0%, 100% { background-position: 0% 50%; }
   50%      { background-position: 100% 50%; }
 }
 
-/* Image prioritized in center */
+/* Image container - high priority */
 #main-image {
   position: absolute;
   top: 50%;
@@ -40,21 +40,22 @@ html, body {
   z-index: 10;
 }
 
-/* Message styles */
+/* Individual message styles */
 .message {
   position: absolute;
   text-align: center;
   font-size: 1.5rem;
   line-height: 1.5rem;
   color: #e6ccff;
-  animation: floatAround 8s ease-in-out forwards;
+  animation: floatAround 5s ease-in-out forwards;
   white-space: pre;
   pointer-events: none;
   user-select: none;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+  will-change: transform, opacity, filter;
 }
 
-/* Keyframe to move in various directions */
+/* Floating animation */
 @keyframes floatAround {
   0% {
     transform: translate(0, 0) scale(1);

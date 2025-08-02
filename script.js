@@ -11,7 +11,6 @@ const messages = [
   "My everything"
 ];
 
-
 const container = document.getElementById('message-container');
 
 function spawnMessage() {
@@ -19,23 +18,20 @@ function spawnMessage() {
   msg.className = 'message';
 
   const text = messages[Math.floor(Math.random() * messages.length)];
-
-  // Vertical layout
   msg.innerHTML = text.split('').map(ch => `<span>${ch}</span>`).join('<br>');
 
-  // Random starting position
+  // Random position on the screen
   const x = Math.random() * 100;
   const y = Math.random() * 100;
   msg.style.left = `${x}%`;
   msg.style.top = `${y}%`;
 
-  // Random direction & depth
+  // Random motion properties
   const dx = (Math.random() - 0.5) * 300 + "px";
   const dy = (Math.random() - 0.5) * 300 + "px";
   const blur = Math.random() * 4 + "px";
   const scale = 0.8 + Math.random() * 0.6;
 
-  // Custom properties to animate
   msg.style.setProperty('--dx', dx);
   msg.style.setProperty('--dy', dy);
   msg.style.setProperty('--blur', blur);
@@ -46,5 +42,5 @@ function spawnMessage() {
   msg.addEventListener('animationend', () => msg.remove());
 }
 
-// More frequent message spawns
-setInterval(spawnMessage, 400);
+// Spawn messages more frequently
+setInterval(spawnMessage, 300);
