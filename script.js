@@ -94,13 +94,15 @@ setInterval(spawnMessage, 300);
 document.addEventListener("mousemove", (e) => {
   const wrapper = document.getElementById("parallax-wrapper");
 
-  const intensity = 80; // 🔥 Increase for more speed & coverage
+  const percentX = (e.clientX / window.innerWidth - 0.5);
+  const percentY = (e.clientY / window.innerHeight - 0.5);
 
-  const x = (e.clientX / window.innerWidth - 0.5) * intensity;
-  const y = (e.clientY / window.innerHeight - 0.5) * intensity;
+  const rotateY = percentX * 40; // stronger horizontal rotation
+  const rotateX = -percentY * 40; // stronger vertical rotation
 
-  wrapper.style.transform = `translate(${x}px, ${y}px)`;
+  wrapper.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
+
 
 
 
