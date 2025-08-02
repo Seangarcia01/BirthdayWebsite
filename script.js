@@ -17,7 +17,7 @@ const imageContainer = document.getElementById('image-container');
 const imagePaths = [
   "assets/3.jpg",
   "assets/4.jpg",
-  "assets/5.png",
+  "assets/5.jpg",
   "assets/6.jpg"
 ];
 
