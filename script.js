@@ -13,34 +13,34 @@ const messages = [
 
 const container = document.getElementById('message-container');
 const imageContainer = document.getElementById('image-container');
-const noBtn = document.getElementById("no-btn");
-let noClickCount = 0;
+const noBtn = document.getElementById('no-btn');
+let clickCount = 0;
 
-noBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  noClickCount++;
+noBtn.addEventListener('click', (e) => {
+  clickCount++;
 
-  // Shake effect
-  noBtn.classList.add("shake");
-  setTimeout(() => noBtn.classList.remove("shake"), 500);
+  // Shake and move to a random position on screen
+  noBtn.classList.add('shake');
+  setTimeout(() => noBtn.classList.remove('shake'), 500);
 
-  // Start moving only after 3rd click
-  if (noClickCount >= 3) {
-    // Allow full screen movement
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
 
-    noBtn.style.position = "fixed";
-    noBtn.style.left = `${randomX}px`;
-    noBtn.style.top = `${randomY}px`;
-    noBtn.style.transform = "scale(1)"; // Keep size stable
+  noBtn.style.position = 'fixed';
+  noBtn.style.left = `${randomX}px`;
+  noBtn.style.top = `${randomY}px`;
+
+  // After 8 clicks, hide or move far off-screen
+  if (clickCount >= 8) {
+    noBtn.style.left = `-9999px`;
+    noBtn.style.top = `-9999px`;
+    noBtn.style.opacity = '0';
+    noBtn.style.pointerEvents = 'none';
   }
 });
-
-
 
 const imagePaths = [
   "assets/1.jpg",
