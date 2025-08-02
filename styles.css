@@ -35,19 +35,24 @@ html, body {
   z-index: 100;
 }
 
-/* Main image */
 #main-image {
-  max-width: 60vw;
-  max-height: 60vh;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
+  max-height: 80vh;
   overflow: hidden;
+  z-index: 50;
 }
 
 #main-image img {
   width: 100%;
   height: auto;
-  display: block;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+  object-fit: contain;
 }
 
 /* Caption below image */
