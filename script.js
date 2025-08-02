@@ -15,10 +15,14 @@ const container = document.getElementById('message-container');
 const imageContainer = document.getElementById('image-container');
 
 const imagePaths = [
+  "assets/1.jpg",
   "assets/3.jpg",
   "assets/4.jpg",
   "assets/5.jpg",
-  "assets/6.jpg"
+  "assets/6.jpg",
+  "assets/7.jpg",
+  "assets/8.jpg",
+  "assets/9.jpg"
 ];
 
 // Spawn floating image
