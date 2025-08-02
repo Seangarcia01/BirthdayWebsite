@@ -36,14 +36,12 @@ html, body {
 }
 
 #main-image {
-  position: relative;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 80vw;
-  max-height: 80vh;
-  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60vw;
+  max-height: 60vh;
   z-index: 50;
 }
 
@@ -53,7 +51,9 @@ html, body {
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
   object-fit: contain;
+  display: block;
 }
+
 
 /* Caption below image */
 #main-caption {
