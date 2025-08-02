@@ -35,6 +35,7 @@ html, body {
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
   background-color: #fff;
+  margin-bottom: 1rem;
 }
 
 #main-caption {
@@ -107,7 +108,7 @@ html, body {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-top: 40;
+  margin-top: 2rem;
 }
 
 
