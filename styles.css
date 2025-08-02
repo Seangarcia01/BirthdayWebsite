@@ -24,7 +24,6 @@ html, body {
   will-change: transform;
 }
 
-/* Center image + caption container */
 #main-center {
   position: absolute;
   top: 50%;
@@ -33,6 +32,7 @@ html, body {
   text-align: center;
   z-index: 100;
 }
+
 
 /* Main image */
 #main-image {
