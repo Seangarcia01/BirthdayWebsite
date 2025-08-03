@@ -125,10 +125,7 @@ html, body {
   background: linear-gradient(135deg, #ff4d4d, #ff9999);
   color: #fff;
   box-shadow: 0 0 12px #ff6666;
-  position: absolute; /* Important */
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute; /* So we can move it around */
   padding: 0.75rem 1.5rem;
   font-size: 1.1rem;
   font-weight: bold;
@@ -139,6 +136,9 @@ html, body {
   z-index: 999;
 }
 
+#no-btn.shake {
+  animation: shake 0.4s ease;
+}
 
 #button-container button {
   padding: 0.75rem 1.5rem;
@@ -171,6 +171,7 @@ html, body {
   background: linear-gradient(135deg, #00ff99, #33ffcc);
   color: #000;
   box-shadow: 0 0 12px #33ffcc;
+  position: relative;
 }
 
 #proceed-btn:hover {
