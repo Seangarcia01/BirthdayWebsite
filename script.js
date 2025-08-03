@@ -36,12 +36,15 @@ noBtn.addEventListener("click", (e) => {
   setTimeout(() => noBtn.classList.remove("shake"), 400);
 
   if (clickCount < 8) {
-    const container = document.getElementById("button-container");
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
+    // Move the No button around the whole screen
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
 
-    const randomX = Math.floor(Math.random() * (containerWidth - noBtn.offsetWidth));
-    const randomY = Math.floor(Math.random() * (containerHeight - noBtn.offsetHeight));
+    const maxX = screenWidth - noBtn.offsetWidth;
+    const maxY = screenHeight - noBtn.offsetHeight;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
 
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
@@ -150,9 +153,3 @@ document.addEventListener("mousemove", (e) => {
     hiddenImage.style.opacity = 0;
   }
 });
-
-
-
-
-
-
