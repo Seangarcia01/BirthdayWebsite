@@ -25,27 +25,21 @@ noBtn.addEventListener("click", (e) => {
   setTimeout(() => noBtn.classList.remove("shake"), 400);
 
   if (noClickCount < 8) {
-    // Get button size
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Limit movement within screen (leave margin)
-    const maxX = window.innerWidth - btnWidth - 20;
-    const maxY = window.innerHeight - btnHeight - 20;
+    const maxX = window.innerWidth - btnWidth - 10;
+    const maxY = window.innerHeight - btnHeight - 10;
 
-    // Generate new position
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
 
-    noBtn.style.position = "absolute";
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
   } else {
-    // After 8 clicks, disappear
     noBtn.style.display = "none";
   }
 });
-
 
 const imagePaths = [
   "assets/1.jpg",
