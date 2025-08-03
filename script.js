@@ -18,14 +18,14 @@ const proceedBtn = document.getElementById("proceed-btn");
 
 let clickCount = 0;
 
-// Initially make it static to stay inline
+// Initially keep button static
 noBtn.classList.add("initial");
 
 noBtn.addEventListener("click", (e) => {
   e.preventDefault();
   clickCount++;
 
-  // Remove 'initial' class on first click to enable absolute movement
+  // Remove static class and allow movement
   if (clickCount === 1) {
     noBtn.classList.remove("initial");
     noBtn.style.position = "absolute";
@@ -36,12 +36,9 @@ noBtn.addEventListener("click", (e) => {
   setTimeout(() => noBtn.classList.remove("shake"), 400);
 
   if (clickCount < 8) {
-    // Move the No button around the whole screen
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    const maxX = screenWidth - noBtn.offsetWidth;
-    const maxY = screenHeight - noBtn.offsetHeight;
+    const container = document.getElementById("button-container");
+    const maxX = container.offsetWidth - noBtn.offsetWidth;
+    const maxY = container.offsetHeight - noBtn.offsetHeight;
 
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
@@ -68,7 +65,6 @@ const imagePaths = [
   "assets/calle2.jpg",
 ];
 
-// Spawn floating image
 function spawnImage() {
   const img = document.createElement('img');
   img.src = imagePaths[Math.floor(Math.random() * imagePaths.length)];
@@ -93,13 +89,11 @@ function spawnImage() {
   img.style.zIndex = Math.floor(Math.random() * 10) + 1;
 
   imageContainer.appendChild(img);
-
   img.addEventListener('animationend', () => img.remove());
 }
 
 setInterval(spawnImage, 1200);
 
-// Spawn floating vertical message
 function spawnMessage() {
   const msg = document.createElement('div');
   msg.className = 'message';
@@ -107,7 +101,6 @@ function spawnMessage() {
   const text = messages[Math.floor(Math.random() * messages.length)];
   msg.innerHTML = text.split('').map(ch => `<span>${ch}</span>`).join('<br>');
 
-  // Avoid central area (center image)
   let x, y;
   do {
     x = Math.random() * 100;
@@ -128,7 +121,6 @@ function spawnMessage() {
   msg.style.setProperty('--scale', scale);
 
   container.appendChild(msg);
-
   msg.addEventListener('animationend', () => msg.remove());
 }
 
@@ -146,7 +138,6 @@ document.addEventListener("mousemove", (e) => {
 
   wrapper.style.transform = `translate(${translateX}px, ${translateY}px)`;
 
-  // Reveal hidden image if cursor is in bottom-right corner
   if (e.clientX > window.innerWidth * 0.85 && e.clientY > window.innerHeight * 0.85) {
     hiddenImage.style.opacity = 1;
   } else {
