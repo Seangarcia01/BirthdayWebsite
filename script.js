@@ -18,15 +18,18 @@ const proceedBtn = document.getElementById("proceed-btn");
 
 let clickCount = 0;
 
-// Reset button position initially (centered)
-noBtn.style.position = "absolute";
-noBtn.style.left = "50%";
-noBtn.style.top = "50%";
-noBtn.style.transform = "translate(-50%, -50%)";
+// Initially make it static to stay inline
+noBtn.classList.add("initial");
 
 noBtn.addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent default button action if needed
+  e.preventDefault();
   clickCount++;
+
+  // Remove 'initial' class on first click to enable absolute movement
+  if (clickCount === 1) {
+    noBtn.classList.remove("initial");
+    noBtn.style.position = "absolute";
+  }
 
   // Shake animation
   noBtn.classList.add("shake");
@@ -37,7 +40,6 @@ noBtn.addEventListener("click", (e) => {
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
 
-    // Allow movement anywhere inside the container
     const randomX = Math.floor(Math.random() * (containerWidth - noBtn.offsetWidth));
     const randomY = Math.floor(Math.random() * (containerHeight - noBtn.offsetHeight));
 
@@ -45,7 +47,6 @@ noBtn.addEventListener("click", (e) => {
     noBtn.style.top = `${randomY}px`;
     noBtn.style.transform = "none";
   } else {
-    // After 8 clicks, hide the button
     noBtn.style.opacity = 0;
     noBtn.style.pointerEvents = "none";
   }

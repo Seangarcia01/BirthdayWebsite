@@ -253,3 +253,8 @@ html, body {
     padding: 0.6rem 1rem;
   }
 }
+
+#no-btn.initial {
+  position: static !important;  /* Reset override to stay inline at start */
+  transform: none !important;
+}
