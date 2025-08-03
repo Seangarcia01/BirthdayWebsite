@@ -4,47 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>8 Reasons Why I Love You 🌹</title>
-  <link rel="stylesheet" href="carousel.css" />
+  <link rel="stylesheet" href="page2.css" />
 </head>
 <body>
-  <div class="carousel-wrapper">
-    <h1>🌹 8 Reasons Why I Love You</h1>
-    <p class="subtext">Swipe or scroll to discover why I adore you…</p>
-    
-    <div class="carousel" id="carousel">
-      <div class="slide">Your smile lights up my entire world 🌟</div>
-      <div class="slide">You have the kindest, most genuine heart 💖</div>
-      <div class="slide">The way you care for others is inspiring 🌷</div>
-      <div class="slide">You always know how to make me laugh 😂</div>
-      <div class="slide">You're strong, even when you don't realize it 🦋</div>
-      <div class="slide">You make ordinary days feel magical ✨</div>
-      <div class="slide">You listen, understand, and truly see me 💬</div>
-      <div class="slide">Just being you is why I love you most 💜</div>
-    </div>
+  <div class="background-overlay"></div>
+
+  <div class="reasons-wrapper">
+    <section class="reason active">Your smile lights up my entire world 🌟</section>
+    <section class="reason">You have the kindest, most genuine heart 💖</section>
+    <section class="reason">The way you care for others is inspiring 🌷</section>
+    <section class="reason">You always know how to make me laugh 😂</section>
+    <section class="reason">You're strong, even when you don't realize it 🦋</section>
+    <section class="reason">You make ordinary days feel magical ✨</section>
+    <section class="reason">You listen, understand, and truly see me 💬</section>
+    <section class="reason">Just being you is why I love you most 💜</section>
   </div>
 
-  <script>
-    const carousel = document.getElementById("carousel");
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    carousel.addEventListener("mousedown", (e) => {
-      isDown = true;
-      startX = e.pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
-    });
-
-    carousel.addEventListener("mouseleave", () => isDown = false);
-    carousel.addEventListener("mouseup", () => isDown = false);
-
-    carousel.addEventListener("mousemove", (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX) * 2; // scroll speed
-      carousel.scrollLeft = scrollLeft - walk;
-    });
-  </script>
+  <script src="page2.js"></script>
 </body>
 </html>
