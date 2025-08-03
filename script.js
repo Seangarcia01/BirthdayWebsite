@@ -145,25 +145,36 @@ document.addEventListener("mousemove", (e) => {
   }
 });
 
-const floatingEmojis = ["🎈", "🎂", "💖", "💝", "🎉", "💗", "💓"];
+const emojiGroups = [
+  ["🎈", "🎈", "🎈", "🎈", "🎉"],
+  ["🎂", "🎂", "🍰", "🧁", "🍩"],
+  ["💖", "💘", "💝", "💗", "💞"],
+  ["🎊", "🎁", "🎀", "💐", "🌸"]
+];
+
 const decoContainer = document.getElementById("decorations-container");
 
-function spawnFloatingEmoji() {
-  const span = document.createElement("span");
-  span.className = "floating-deco";
-  span.textContent = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
+function spawnEmojiBundle() {
+  const group = emojiGroups[Math.floor(Math.random() * emojiGroups.length)];
 
-  const x = Math.random() * 100;
-  const size = 1 + Math.random(); // scale from 1 to 2
+  group.forEach((emoji, index) => {
+    const span = document.createElement("span");
+    span.className = "floating-deco";
+    span.textContent = emoji;
 
-  span.style.left = `${x}%`;
-  span.style.fontSize = `${size}rem`;
+    const x = Math.random() * 100;
+    const delay = Math.random() * 0.5 + index * 0.1;
+    const size = 1 + Math.random() * 0.5;
 
-  decoContainer.appendChild(span);
+    span.style.left = `${x}%`;
+    span.style.fontSize = `${size}rem`;
+    span.style.animationDelay = `${delay}s`;
 
-  setTimeout(() => {
-    span.remove();
-  }, 6000);
+    decoContainer.appendChild(span);
+
+    setTimeout(() => span.remove(), 4000);
+  });
 }
 
-setInterval(spawnFloatingEmoji, 500);
+// Spawn a bundle every 400ms
+setInterval(spawnEmojiBundle, 400);
