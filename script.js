@@ -144,3 +144,26 @@ document.addEventListener("mousemove", (e) => {
     hiddenImage.style.opacity = 0;
   }
 });
+
+const floatingEmojis = ["🎈", "🎂", "💖", "💝", "🎉", "💗", "💓"];
+const decoContainer = document.getElementById("decorations-container");
+
+function spawnFloatingEmoji() {
+  const span = document.createElement("span");
+  span.className = "floating-deco";
+  span.textContent = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
+
+  const x = Math.random() * 100;
+  const size = 1 + Math.random(); // scale from 1 to 2
+
+  span.style.left = `${x}%`;
+  span.style.fontSize = `${size}rem`;
+
+  decoContainer.appendChild(span);
+
+  setTimeout(() => {
+    span.remove();
+  }, 6000);
+}
+
+setInterval(spawnFloatingEmoji, 500);

@@ -162,6 +162,34 @@ html, body {
   animation: shake 0.4s ease;
 }
 
+#decorations-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-deco {
+  position: absolute;
+  font-size: 2rem;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
 /* Animations */
 @keyframes shake {
   0% { transform: translateX(0); }
