@@ -168,13 +168,16 @@ function spawnEmojiBundle() {
 
     span.style.left = `${x}%`;
     span.style.fontSize = `${size}rem`;
+    span.style.opacity = 0;
     span.style.animationDelay = `${delay}s`;
 
     decoContainer.appendChild(span);
 
+    // Appear just before floating begins
+    setTimeout(() => {
+      span.style.opacity = 1;
+    }, delay * 1000);
+
     setTimeout(() => span.remove(), 4000);
   });
 }
-
-// Spawn a bundle every 400ms
-setInterval(spawnEmojiBundle, 400);
