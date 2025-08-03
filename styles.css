@@ -132,6 +132,20 @@ html, body {
   position: relative;
 }
 
+#button-container a,
+#button-container button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
 /* Proceed / Continue button */
 #proceed-btn {
   background: linear-gradient(135deg, #00ff99, #33ffcc);
@@ -205,5 +219,48 @@ html, body {
     transform: translate(var(--dx), var(--dy)) scale(var(--scale));
     opacity: 0;
     filter: blur(var(--blur));
+  }
+}
+
+/* Mobile & Small Screens */
+@media (max-width: 768px) {
+  #main-image img {
+    width: 80vw;
+    max-height: 40vh;
+  }
+
+  #main-caption {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  #button-container {
+    flex-direction: column;
+    gap: 1rem;
+    height: auto;
+    margin-top: 1.5rem;
+  }
+
+  #button-container button,
+  #button-container a {
+    font-size: 1rem;
+    padding: 0.75rem 1.2rem;
+  }
+}
+
+/* Extra small screens (e.g., older phones) */
+@media (max-width: 480px) {
+  #main-caption {
+    font-size: 1rem;
+  }
+
+  #main-image img {
+    width: 90vw;
+  }
+
+  #button-container button,
+  #button-container a {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
   }
 }
