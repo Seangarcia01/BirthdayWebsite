@@ -254,7 +254,6 @@ html, body {
     flex-direction: column;
     gap: 1rem;
     height: auto;
-    margin-top: 1.5rem;
   }
 
   #button-container button,
