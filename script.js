@@ -181,3 +181,6 @@ function spawnEmojiBundle() {
     setTimeout(() => span.remove(), 4000);
   });
 }
+
+// Spawn a bundle every 400ms
+setInterval(spawnEmojiBundle, 400);
