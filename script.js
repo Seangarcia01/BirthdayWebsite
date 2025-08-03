@@ -13,34 +13,39 @@ const messages = [
 
 const container = document.getElementById('message-container');
 const imageContainer = document.getElementById('image-container');
-const noBtn = document.getElementById('no-btn');
-let clickCount = 0;
+const noBtn = document.getElementById("no-btn");
+let noClickCount = 0;
 
-noBtn.addEventListener('click', (e) => {
-  clickCount++;
+noBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  noClickCount++;
 
-  // Shake and move to a random position on screen
-  noBtn.classList.add('shake');
-  setTimeout(() => noBtn.classList.remove('shake'), 500);
+  // Shake effect on every click
+  noBtn.classList.add("shake");
+  setTimeout(() => noBtn.classList.remove("shake"), 400);
 
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
+  if (noClickCount < 8) {
+    // Get button size
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
+    // Limit movement within screen (leave margin)
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
 
-  noBtn.style.position = 'fixed';
-  noBtn.style.left = `${randomX}px`;
-  noBtn.style.top = `${randomY}px`;
+    // Generate new position
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
 
-  // After 8 clicks, hide or move far off-screen
-  if (clickCount >= 8) {
-    noBtn.style.left = `-9999px`;
-    noBtn.style.top = `-9999px`;
-    noBtn.style.opacity = '0';
-    noBtn.style.pointerEvents = 'none';
+    noBtn.style.position = "absolute";
+    noBtn.style.left = `${randomX}px`;
+    noBtn.style.top = `${randomY}px`;
+  } else {
+    // After 8 clicks, disappear
+    noBtn.style.display = "none";
   }
 });
+
 
 const imagePaths = [
   "assets/1.jpg",
