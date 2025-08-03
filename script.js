@@ -15,40 +15,39 @@ const container = document.getElementById('message-container');
 const imageContainer = document.getElementById('image-container');
 const noBtn = document.getElementById("no-btn");
 const proceedBtn = document.getElementById("proceed-btn");
-let noClickCount = 0;
 
-// Place "No" button initially beside "Continue"
-window.addEventListener("load", () => {
-  const proceedRect = proceedBtn.getBoundingClientRect();
-  noBtn.style.left = `${proceedRect.right + 20}px`;
-  noBtn.style.top = `${proceedRect.top}px`;
-});
+let clickCount = 0;
+
+// Reset button position initially (centered)
+noBtn.style.position = "absolute";
+noBtn.style.left = "50%";
+noBtn.style.top = "50%";
+noBtn.style.transform = "translate(-50%, -50%)";
 
 noBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  noClickCount++;
+  e.preventDefault(); // Prevent default button action if needed
+  clickCount++;
 
+  // Shake animation
   noBtn.classList.add("shake");
   setTimeout(() => noBtn.classList.remove("shake"), 400);
 
-  if (noClickCount < 8) {
-    const btnWidth = noBtn.offsetWidth;
-    const btnHeight = noBtn.offsetHeight;
+  if (clickCount < 8) {
+    const container = document.getElementById("button-container");
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
 
-    // Avoid hugging screen edge
-    const padding = 80;
-    const maxX = window.innerWidth - btnWidth - padding;
-    const maxY = window.innerHeight - btnHeight - padding;
-
-    const randomX = padding + Math.random() * (maxX - padding);
-    const randomY = padding + Math.random() * (maxY - padding);
+    // Allow movement anywhere inside the container
+    const randomX = Math.floor(Math.random() * (containerWidth - noBtn.offsetWidth));
+    const randomY = Math.floor(Math.random() * (containerHeight - noBtn.offsetHeight));
 
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
+    noBtn.style.transform = "none";
   } else {
-    // Move it far off screen or hide
-    noBtn.style.left = `-2000px`;
-    noBtn.style.top = `-2000px`;
+    // After 8 clicks, hide the button
+    noBtn.style.opacity = 0;
+    noBtn.style.pointerEvents = "none";
   }
 });
 
