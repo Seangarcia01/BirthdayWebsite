@@ -8,13 +8,16 @@
 </head> 
 <body>
   <div id="parallax-wrapper">
-    <!-- Floating images -->
-    <div id="image-container"></div>
+    
+    <!-- ✅ Begin Zoom Wrapper -->
+    <div id="zoom-wrapper">
+      <div id="decorations-container"></div>
+      <div id="image-container"></div>
+      <div id="message-container"></div>
+    </div>
+    <!-- ✅ End Zoom Wrapper -->
 
-    <!-- Floating messages -->
-    <div id="message-container"></div>
-
-    <!-- Centered container for image and caption -->
+    <!-- Centered container for image and caption (outside zoom area) -->
     <div id="main-center">
       <div id="main-caption">
         <p>Happy Birthday, Love! 💜</p>
@@ -22,12 +25,13 @@
       <div id="main-image">
         <img src="assets/happy_birthday.svg" alt="happy_birthday">
       </div>
-        <div id="button-container">
+      <div id="button-container">
         <a href="reasons.html" id="proceed-btn">Next Page</a>
         <button id="no-btn">No</button>
       </div>
     </div>
-    <div id="decorations-container"></div>
+
+    <!-- Hidden image stays outside too -->
     <img id="hidden-image" src="assets/hidden-image.jpg" alt="Surprise!" />
   </div>
 

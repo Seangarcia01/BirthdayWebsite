@@ -184,3 +184,22 @@ function spawnEmojiBundle() {
 
 // Spawn a bundle every 400ms
 setInterval(spawnEmojiBundle, 400);
+
+let zoomLevel = 1;
+const zoomWrapper = document.getElementById("zoom-wrapper");
+
+function setZoom(scale) {
+  zoomWrapper.style.transform = `scale(${scale})`;
+}
+
+// Zoom with mouse wheel
+document.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const zoomIntensity = 0.1;
+  if (e.deltaY < 0) {
+    zoomLevel += zoomIntensity;
+  } else {
+    zoomLevel = Math.max(0.2, zoomLevel - zoomIntensity);
+  }
+  setZoom(zoomLevel);
+}, { passive: false });
