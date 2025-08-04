@@ -35,8 +35,8 @@ html, body {
 
 /* Main image */
 #main-image img {
-  width: 30vw;
-  max-width: 30vw;
+  width: 60%;
+  max-width: 300px;
   height: auto;
   max-height: 60vh;
   border-radius: 20px;
