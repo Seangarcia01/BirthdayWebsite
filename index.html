@@ -3,26 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday</title>
+  <title>Happy Birthday 💜</title>
   <link rel="stylesheet" href="styles.css" />
-</head>
+</head> 
 <body>
-  <main class="container">
-    <header>
-      <h1>🎁 A Special Surprise Just for You 🎁</h1>
-      <p class="subtext">Crafted with love and code</p>
-    </header>
+  <div id="parallax-wrapper">
+    <!-- Floating images -->
+    <div id="image-container"></div>
 
-    <section class="main-card">
-      <img src="assets/happy_birthday.svg" alt="Happy Birthday Image" class="main-image" />
-      <button class="open-button" onclick="nextPage()">🎉 Open Your Gift</button>
-    </section>
+    <!-- Floating messages -->
+    <div id="message-container"></div>
 
-    <footer>
-      <p class="footer-note">Handcrafted by Sean for her special day. Built with love and code. 🌸 #CodeQuest</p>
-    </footer>
-  </main>
+    <!-- Centered container for image and caption -->
+    <div id="main-center">
+      <div id="main-caption">
+        <p>Happy Birthday, Love! 💜</p>
+      </div>
+      <div id="main-image">
+        <img src="assets/happy_birthday.svg" alt="happy_birthday">
+      </div>
+        <div id="button-container">
+        <a href="reasons.html" id="proceed-btn">Next Page</a>
+        <button id="no-btn">No</button>
+      </div>
+    </div>
+    <div id="decorations-container"></div>
+    <img id="hidden-image" src="assets/hidden-image.jpg" alt="Surprise!" />
+  </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
