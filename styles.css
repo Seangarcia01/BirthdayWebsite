@@ -1,21 +1,3 @@
-#zoom-wrapper {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  transform-origin: center center;
-  transition: transform 0.2s ease;
-  touch-action: none;
-}
-
-#message-container, #image-container, #decorations-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-} 
-
 /* Reset and base */
 html, body {
   overscroll-behavior: none;
@@ -300,4 +282,35 @@ html, body {
     font-size: 0.95rem;
     padding: 0.6rem 1rem;
   }
+}
+
+#zoom-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform-origin: center center;
+  transition: transform 0.2s ease;
+  touch-action: none;
+}
+
+#message-container, #image-container, #decorations-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+} 
+
+.zoom-element {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  font-size: 1.5rem;
+  color: #ffccff;
+  z-index: 100;
+}
+.zoom-element.visible {
+  opacity: 1;
 }
