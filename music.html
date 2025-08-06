@@ -8,6 +8,19 @@
       margin: 0;
       background: transparent;
     }
+    .music-toggle-btn {
+      position: fixed;
+      bottom: 90px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1001;
+      font-family: sans-serif;
+    }
     .music-controls {
       position: fixed;
       bottom: 10px;
@@ -22,6 +35,7 @@
       align-items: center;
       gap: 10px;
       z-index: 1000;
+      transition: all 0.3s ease;
     }
     input[type=range] {
       width: 150px;
@@ -38,6 +52,9 @@
     button:hover {
       transform: scale(1.1);
     }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -46,7 +63,9 @@
     Your browser does not support the audio element.
   </audio>
 
-  <div class="music-controls">
+  <div class="music-toggle-btn" onclick="toggleControls()">🎵 Music</div>
+
+  <div class="music-controls hidden" id="controlsBox">
     <label for="volume">🔊</label>
     <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
     <button id="mute-toggle" title="Mute/Unmute">🔇</button>
@@ -56,6 +75,7 @@
     const music = document.getElementById('bg-music');
     const volumeSlider = document.getElementById('volume');
     const muteBtn = document.getElementById('mute-toggle');
+    const controlsBox = document.getElementById('controlsBox');
 
     // Restore saved music time
     const savedTime = sessionStorage.getItem('musicTime');
@@ -84,10 +104,15 @@
       muteBtn.textContent = music.muted ? "🔈" : "🔇";
     });
 
-    // Autoplay fix
+    // Autoplay fix for mobile
     window.addEventListener('click', () => {
       music.play().catch(() => {});
     }, { once: true });
+
+    // Show/hide music controls
+    function toggleControls() {
+      controlsBox.classList.toggle('hidden');
+    }
   </script>
 </body>
 </html>
