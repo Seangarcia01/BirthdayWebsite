@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Player</title>
+</head>
+<body>
+  <audio id="bg-music" autoplay loop>
+    <source src="songs/SAKSI-ANG-LANGIT.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const music = document.getElementById('bg-music');
+
+    // Restore the saved time if available
+    const savedTime = sessionStorage.getItem('musicTime');
+    if (savedTime) {
+      music.currentTime = parseFloat(savedTime);
+    }
+
+    // Save the current playback time regularly
+    setInterval(() => {
+      if (!music.paused) {
+        sessionStorage.setItem('musicTime', music.currentTime);
+      }
+    }, 500);
+  </script>
+</body>
+</html>

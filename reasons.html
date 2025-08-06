@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="reasons.css" />
 </head>
 <body>
+  <div id="tsparticles"></div>
   <div class="reasons-wrapper">
     <h1 class="reasons-header">🌹 8 Reasons Why I Love You 🌹</h1>
     <div class="reasons-grid">
@@ -31,7 +32,22 @@
       <button id="popup-close">Close</button>
     </div>
   </div>
+  <iframe src="music.html" style="display: none;" allow="autoplay"></iframe>
 
   <script src="reasons.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+  <script>
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: true, zIndex: -1 },
+      particles: {
+        number: { value: 60 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3 },
+        size: { value: 2 },
+        move: { enable: true, speed: 1 }
+      }
+    });
+  </script>
 </body>
 </html>
