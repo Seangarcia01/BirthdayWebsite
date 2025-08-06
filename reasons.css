@@ -89,3 +89,66 @@ body {
   background: rgba(255, 192, 203, 0.4);
   transform: scale(1.05);
 }
+
+#popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#popup-overlay:not(.hidden) {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#popup-card {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+  transform: translateY(20px);
+  animation: popupFadeIn 0.4s ease forwards;
+}
+
+#popup-close {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  background-color: rgba(255, 192, 203, 0.3);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#popup-close:hover {
+  background-color: rgba(255, 192, 203, 0.5);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
