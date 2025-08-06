@@ -8,52 +8,74 @@
       margin: 0;
       background: transparent;
     }
-    .music-toggle-btn {
-      position: fixed;
-      bottom: 90px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      padding: 10px 15px;
-      font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      z-index: 1001;
-      font-family: sans-serif;
-    }
-    .music-controls {
+
+    .toggle-icon {
       position: fixed;
       bottom: 10px;
       right: 10px;
       background: rgba(0, 0, 0, 0.6);
-      padding: 15px 20px;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 20px;
+      z-index: 1001;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease;
+    }
+
+    .music-controls {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 18px 20px;
       border-radius: 15px;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       color: white;
       font-family: sans-serif;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
       z-index: 1000;
       transition: all 0.3s ease;
+      width: auto;
     }
+
+    .music-controls.hidden {
+      display: none;
+    }
+
     input[type=range] {
-      width: 150px;
-      height: 6px;
+      width: 160px;
+      height: 8px;
       cursor: pointer;
     }
+
     button {
-      font-size: 20px;
+      font-size: 22px;
       background: none;
       border: none;
       color: white;
       cursor: pointer;
     }
+
     button:hover {
       transform: scale(1.1);
     }
-    .hidden {
-      display: none;
+
+    @media (max-width: 600px) {
+      .music-controls {
+        flex-direction: column;
+        align-items: stretch;
+        width: 80%;
+        right: 10%;
+        bottom: 80px;
+      }
+
+      input[type=range] {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -63,9 +85,9 @@
     Your browser does not support the audio element.
   </audio>
 
-  <div class="music-toggle-btn" onclick="toggleControls()">🎵 Music</div>
+  <div class="toggle-icon" id="toggleBtn">🎵</div>
 
-  <div class="music-controls hidden" id="controlsBox">
+  <div class="music-controls hidden" id="musicControls">
     <label for="volume">🔊</label>
     <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
     <button id="mute-toggle" title="Mute/Unmute">🔇</button>
@@ -75,19 +97,16 @@
     const music = document.getElementById('bg-music');
     const volumeSlider = document.getElementById('volume');
     const muteBtn = document.getElementById('mute-toggle');
-    const controlsBox = document.getElementById('controlsBox');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const musicControls = document.getElementById('musicControls');
 
     // Restore saved music time
     const savedTime = sessionStorage.getItem('musicTime');
-    if (savedTime) {
-      music.currentTime = parseFloat(savedTime);
-    }
+    if (savedTime) music.currentTime = parseFloat(savedTime);
 
     // Save playback time
     setInterval(() => {
-      if (!music.paused) {
-        sessionStorage.setItem('musicTime', music.currentTime);
-      }
+      if (!music.paused) sessionStorage.setItem('musicTime', music.currentTime);
     }, 500);
 
     // Volume control
@@ -104,15 +123,15 @@
       muteBtn.textContent = music.muted ? "🔈" : "🔇";
     });
 
-    // Autoplay fix for mobile
+    // Show/hide controls
+    toggleBtn.addEventListener('click', () => {
+      musicControls.classList.toggle('hidden');
+    });
+
+    // Autoplay fix
     window.addEventListener('click', () => {
       music.play().catch(() => {});
     }, { once: true });
-
-    // Show/hide music controls
-    function toggleControls() {
-      controlsBox.classList.toggle('hidden');
-    }
   </script>
 </body>
 </html>
