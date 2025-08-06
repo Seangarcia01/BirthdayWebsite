@@ -1,30 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Music Player</title>
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+    }
+    .music-controls {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(6px);
+      color: white;
+      font-family: sans-serif;
+    }
+    input[type=range] {
+      width: 100px;
+    }
+  </style>
 </head>
 <body>
   <audio id="bg-music" autoplay loop>
-    <source src="songs/DAISIES.mp3" type="audio/mpeg">
+    <source src="songs/DAISIES.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
+  <div class="music-controls">
+    <label for="volume">🔊</label>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
+    <button id="mute-toggle">🔇</button>
+  </div>
+
   <script>
     const music = document.getElementById('bg-music');
+    const volumeSlider = document.getElementById('volume');
+    const muteBtn = document.getElementById('mute-toggle');
 
-    // Restore the saved time if available
+    // Restore saved music time
     const savedTime = sessionStorage.getItem('musicTime');
     if (savedTime) {
       music.currentTime = parseFloat(savedTime);
     }
 
-    // Save the current playback time regularly
+    // Save playback time
     setInterval(() => {
       if (!music.paused) {
         sessionStorage.setItem('musicTime', music.currentTime);
       }
     }, 500);
+
+    // Volume control
+    music.volume = 0.5;
+    volumeSlider.addEventListener('input', () => {
+      music.volume = volumeSlider.value;
+      music.muted = false;
+      muteBtn.textContent = "🔇";
+    });
+
+    // Mute toggle
+    muteBtn.addEventListener('click', () => {
+      music.muted = !music.muted;
+      muteBtn.textContent = music.muted ? "🔈" : "🔇";
+    });
+
+    // Autoplay fix
+    window.addEventListener('click', () => {
+      music.play().catch(() => {});
+    }, { once: true });
   </script>
 </body>
 </html>
