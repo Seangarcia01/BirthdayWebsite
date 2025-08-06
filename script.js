@@ -185,29 +185,21 @@ function spawnEmojiBundle() {
 // Spawn a bundle every 400ms
 setInterval(spawnEmojiBundle, 400);
 
-let scale = 1;
-let zoomWrapper = document.getElementById('zoom-wrapper');
-let zoomElements = document.querySelectorAll('.zoom-element');
+let zoomLevel = 1;
+const zoomWrapper = document.getElementById("zoom-wrapper");
 
-function updateZoom() {
+function setZoom(scale) {
   zoomWrapper.style.transform = `scale(${scale})`;
-  zoomElements.forEach(el => {
-    let minScale = parseFloat(el.dataset.minScale || 1);
-    if (scale >= minScale) {
-      el.classList.add('visible');
-    } else {
-      el.classList.remove('visible');
-    }
-  });
 }
 
-document.addEventListener('wheel', e => {
-  if (e.ctrlKey) {
-    e.preventDefault();
-    scale += e.deltaY * -0.001;
-    scale = Math.min(Math.max(0.2, scale), 5);
-    updateZoom();
+// Zoom with mouse wheel
+document.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const zoomIntensity = 0.1;
+  if (e.deltaY < 0) {
+    zoomLevel += zoomIntensity;
+  } else {
+    zoomLevel = Math.max(0.2, zoomLevel - zoomIntensity);
   }
+  setZoom(zoomLevel);
 }, { passive: false });
-
-updateZoom();
