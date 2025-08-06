@@ -67,3 +67,25 @@ body {
     opacity: 1;
   }
 }
+
+.navigation-buttons {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.nav-btn {
+  background: rgba(255, 192, 203, 0.2);
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 192, 203, 0.4);
+  transform: scale(1.05);
+}
