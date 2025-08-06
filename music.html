@@ -32,7 +32,7 @@
 
   <div class="music-controls">
     <label for="volume">🔊</label>
-    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
+    <input type="range" id="volume" min="0" max="1" step="0.01" />
     <button id="mute-toggle">🔇</button>
   </div>
 
@@ -41,34 +41,42 @@
     const volumeSlider = document.getElementById('volume');
     const muteBtn = document.getElementById('mute-toggle');
 
-    // Restore saved music time
+    // Restore saved settings
+    const savedVolume = sessionStorage.getItem('musicVolume');
+    const savedMuted = sessionStorage.getItem('musicMuted');
     const savedTime = sessionStorage.getItem('musicTime');
-    if (savedTime) {
-      music.currentTime = parseFloat(savedTime);
-    }
 
-    // Save playback time
+    music.volume = savedVolume !== null ? parseFloat(savedVolume) : 0.5;
+    volumeSlider.value = music.volume;
+    music.muted = savedMuted === 'true';
+    muteBtn.textContent = music.muted ? '🔈' : '🔇';
+
+    if (savedTime) music.currentTime = parseFloat(savedTime);
+
+    // Save playback time regularly
     setInterval(() => {
       if (!music.paused) {
         sessionStorage.setItem('musicTime', music.currentTime);
       }
     }, 500);
 
-    // Volume control
-    music.volume = 0.5;
+    // Volume slider
     volumeSlider.addEventListener('input', () => {
       music.volume = volumeSlider.value;
       music.muted = false;
-      muteBtn.textContent = "🔇";
+      muteBtn.textContent = '🔇';
+      sessionStorage.setItem('musicVolume', music.volume);
+      sessionStorage.setItem('musicMuted', music.muted);
     });
 
     // Mute toggle
     muteBtn.addEventListener('click', () => {
       music.muted = !music.muted;
-      muteBtn.textContent = music.muted ? "🔈" : "🔇";
+      muteBtn.textContent = music.muted ? '🔈' : '🔇';
+      sessionStorage.setItem('musicMuted', music.muted);
     });
 
-    // Autoplay fix
+    // Autoplay fix for some browsers
     window.addEventListener('click', () => {
       music.play().catch(() => {});
     }, { once: true });
