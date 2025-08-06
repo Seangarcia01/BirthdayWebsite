@@ -9,41 +9,22 @@
       background: transparent;
     }
 
-    .toggle-icon {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      padding: 10px 14px;
-      border-radius: 50%;
-      font-size: 20px;
-      z-index: 1001;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: transform 0.3s ease;
-    }
-
     .music-controls {
       position: fixed;
-      bottom: 60px;
-      right: 10px;
+      bottom: 20px;
+      right: 20px;
       background: rgba(0, 0, 0, 0.6);
-      padding: 18px 20px;
+      padding: 20px;
       border-radius: 15px;
       backdrop-filter: blur(10px);
       color: white;
       font-family: sans-serif;
       display: flex;
       align-items: center;
-      gap: 15px;
-      z-index: 1000;
-      transition: all 0.3s ease;
-      width: auto;
-    }
-
-    .music-controls.hidden {
-      display: none;
+      gap: 12px;
+      z-index: 10000;
+      max-width: 90vw;
+      overflow: visible;
     }
 
     input[type=range] {
@@ -53,11 +34,12 @@
     }
 
     button {
-      font-size: 22px;
+      font-size: 24px;
       background: none;
       border: none;
       color: white;
       cursor: pointer;
+      padding: 5px;
     }
 
     button:hover {
@@ -67,14 +49,14 @@
     @media (max-width: 600px) {
       .music-controls {
         flex-direction: column;
-        align-items: stretch;
-        width: 80%;
-        right: 10%;
-        bottom: 80px;
+        bottom: 15px;
+        right: 15px;
+        padding: 15px;
+        gap: 10px;
       }
 
       input[type=range] {
-        width: 100%;
+        width: 120px;
       }
     }
   </style>
@@ -85,9 +67,7 @@
     Your browser does not support the audio element.
   </audio>
 
-  <div class="toggle-icon" id="toggleBtn">🎵</div>
-
-  <div class="music-controls hidden" id="musicControls">
+  <div class="music-controls">
     <label for="volume">🔊</label>
     <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
     <button id="mute-toggle" title="Mute/Unmute">🔇</button>
@@ -97,16 +77,18 @@
     const music = document.getElementById('bg-music');
     const volumeSlider = document.getElementById('volume');
     const muteBtn = document.getElementById('mute-toggle');
-    const toggleBtn = document.getElementById('toggleBtn');
-    const musicControls = document.getElementById('musicControls');
 
     // Restore saved music time
     const savedTime = sessionStorage.getItem('musicTime');
-    if (savedTime) music.currentTime = parseFloat(savedTime);
+    if (savedTime) {
+      music.currentTime = parseFloat(savedTime);
+    }
 
     // Save playback time
     setInterval(() => {
-      if (!music.paused) sessionStorage.setItem('musicTime', music.currentTime);
+      if (!music.paused) {
+        sessionStorage.setItem('musicTime', music.currentTime);
+      }
     }, 500);
 
     // Volume control
@@ -121,11 +103,6 @@
     muteBtn.addEventListener('click', () => {
       music.muted = !music.muted;
       muteBtn.textContent = music.muted ? "🔈" : "🔇";
-    });
-
-    // Show/hide controls
-    toggleBtn.addEventListener('click', () => {
-      musicControls.classList.toggle('hidden');
     });
 
     // Autoplay fix
