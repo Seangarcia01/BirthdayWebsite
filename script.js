@@ -204,29 +204,6 @@ document.addEventListener("wheel", (e) => {
   setZoom(zoomLevel);
 }, { passive: false });
 
-// Typing animation for first page
-const fullText = "Happy Birthday, my Love!";
-const typingEl = document.getElementById("typing-text");
-let idx = 0;
-
-// start typing once page loads
-window.addEventListener("load", () => {
-  function typeChar() {
-    if (idx < fullText.length) {
-      typingEl.textContent += fullText[idx++];
-      setTimeout(typeChar, 100);
-    } else {
-      // Remove blinking cursor border
-      document.getElementById("typing-container").style.borderRight = "none";
-      // Fade in buttons
-      document.getElementById("button-container").style.opacity = 1;
-    }
-  }
-  // hide buttons until typing done
-  document.getElementById("button-container").style.opacity = 0;
-  typeChar();
-});
-
 // ——— Extended Typing Sequence ———
 const line1 = "Happy Birthday, my Love!";
 const line2 = "May your day be as wonderful as you are...";
