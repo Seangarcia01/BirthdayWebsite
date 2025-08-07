@@ -284,6 +284,15 @@ html, body {
     font-size: 1rem;
     padding: 0.75rem 1.2rem;
   }
+
+    .floating-image {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  #hidden-image {
+    width: 100px;   /* shrink the surprise image */
+  }
 }
 
 @media (max-width: 480px) {
@@ -299,6 +308,14 @@ html, body {
   #button-container a {
     font-size: 0.95rem;
     padding: 0.6rem 1rem;
+  }
+
+  .floating-image {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  #hidden-image {
+    width: 80px;
   }
 }
 
