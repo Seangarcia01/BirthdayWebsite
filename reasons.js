@@ -16,3 +16,12 @@ document.getElementById('toggle-music').addEventListener('click', () => {
   const iframe = document.getElementById('music-frame');
   iframe.style.display = (iframe.style.display === 'none') ? 'block' : 'none';
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('toggle-music-btn');
+  const iframe = document.getElementById('music-frame');
+
+  btn.addEventListener('click', () => {
+    iframe.classList.toggle('hidden');
+  });
+});
