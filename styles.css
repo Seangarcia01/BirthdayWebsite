@@ -1,373 +1,149 @@
+/* ——— Zoom & Parallax ——— */
 #zoom-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   overflow: hidden;
   transform-origin: center center;
   transition: transform 0.2s ease;
   touch-action: none;
 }
-
-#message-container, #image-container, #decorations-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-} 
-
-/* Reset and base */
-html, body {
-  overscroll-behavior: none;
-  touch-action: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
-  background-size: 400% 400%;
-  animation: bgPulse 20s ease infinite;
-}
-
-/* Parallax container */
 #parallax-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.1s ease-out;
   will-change: transform;
 }
 
-/* Center content */
-#main-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 200;
-  gap: 1.5rem;
-}
-
-/* Main image */
-#main-image img {
-  width: 40vw;
-  max-width: 350px;
-  height: auto;
-  max-height: 60vh;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-  background-color: #fff;
-  z-index: 200;
-}
-
-/* Caption */
-#main-caption {
-  font-size: 1.6rem;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-  font-weight: bold;
-}
-
-/* Floating text and image container */
-#message-container,
-#image-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
+/* ——— Floating Messages & Images & Decorations ——— */
+#message-container, #image-container, #decorations-container {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
 }
-
 .message {
   position: absolute;
   font-size: 1.5rem;
   color: #e6ccff;
   animation: floatAround 5s ease-in-out forwards;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  user-select: none;
+  text-shadow: 0 0 6px rgba(255,255,255,0.3);
 }
-
 .floating-image {
   position: absolute;
   opacity: 0.5;
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
+  width: 180px; height: 180px;
+  object-fit: cover; border-radius: 12px;
   animation: floatImage 8s ease-in-out forwards;
-  pointer-events: none;
+}
+.floating-deco {
+  position: absolute;
+  animation: floatUp 4s ease-in forwards;
+  opacity: 0.9; user-select: none;
 }
 
+/* ——— Hidden Surprise Image ——— */
 #hidden-image {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 150px;
-  opacity: 0;
+  position: absolute; bottom: 20px; right: 20px;
+  width: 150px; opacity: 0;
   transition: opacity 1s ease;
   z-index: 999;
 }
 
-/* Button layout */
+/* ——— Buttons ——— */
 #button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  position: relative;
-  z-index: 300;
+  display: flex; gap: 20px;
+  position: relative; z-index: 300;
   flex-wrap: wrap;
+  opacity: 0; /* Show after typing */
+  transition: opacity 1s ease-in;
+  margin-top: 1em;
 }
-
-/* General button styles */
-#button-container button,
-#button-container a {
+#button-container a,
+#button-container button {
   padding: 0.75rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-block;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
-  position: relative;
-  z-index: 1;
+  font-size: 1.1rem; font-weight: bold;
+  border: none; border-radius: 10px;
+  cursor: pointer; text-decoration: none;
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
 }
-
-/* Proceed Button */
 #proceed-btn {
   background: linear-gradient(135deg, #00ff99, #33ffcc);
   color: #000;
-  box-shadow: 0 0 12px #33ffcc;
 }
-
 #proceed-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 18px #66ffe0;
 }
-
-/* No Button */
 #no-btn {
   background: linear-gradient(135deg, #ff4d4d, #ff9999);
   color: #fff;
-  box-shadow: 0 0 12px #ff6666;
-  position: relative;
   z-index: 999;
-  transition: all 0.3s ease;
 }
+#no-btn.initial { position: static !important; transform: none !important; }
+#no-btn.shake { animation: shake 0.4s ease; }
+#no-btn:hover { transform: scale(1.05) rotate(-2deg); }
 
-#no-btn:hover {
-  transform: scale(1.05) rotate(-2deg);
-  box-shadow: 0 0 18px #ff8080;
-}
-
-#no-btn.shake {
-  animation: shake 0.4s ease;
-}
-
-#no-btn.initial {
-  position: static !important;
-  transform: none !important;
-}
-
-/* Decorations */
-#decorations-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.floating-deco {
-  position: absolute;
-  animation: floatUp 4s ease-in forwards;
-  opacity: 0.9;
-  user-select: none;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
-/* Animations */
-@keyframes bgPulse {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes floatImage {
-  0% {
-    transform: translate(0, 0) scale(var(--scale));
-    opacity: var(--startOpacity);
-    filter: blur(var(--blur));
-  }
-  20% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    transform: translate(var(--dx), var(--dy)) scale(var(--scale));
-    opacity: 0;
-    filter: blur(var(--blur));
-  }
-}
-
-@keyframes floatAround {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0;
-    filter: blur(2px);
-  }
-  20% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  80% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translate(var(--dx), var(--dy)) scale(var(--scale));
-    opacity: 0;
-    filter: blur(var(--blur));
-  }
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(100vh) scale(0.9) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-20vh) scale(1.2) rotate(20deg);
-    opacity: 0;
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  #main-image img {
-    width: 80vw;
-    max-height: 40vh;
-  }
-
-  #main-caption {
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-  }
-
-  #button-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  #button-container button,
-  #button-container a {
-    font-size: 1rem;
-    padding: 0.75rem 1.2rem;
-  }
-
-    .floating-image {
-    width: 120px !important;
-    height: 120px !important;
-  }
-
-  #hidden-image {
-    width: 100px;   /* shrink the surprise image */
-  }
-}
-
-@media (max-width: 480px) {
-  #main-caption {
-    font-size: 1rem;
-  }
-
-  #main-image img {
-    width: 90vw;
-  }
-
-  #button-container button,
-  #button-container a {
-    font-size: 0.95rem;
-    padding: 0.6rem 1rem;
-  }
-
-  .floating-image {
-    width: 80px !important;
-    height: 80px !important;
-  }
-  #hidden-image {
-    width: 80px;
-  }
-}
-
-#music-frame {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  width: 200px;
-  height: 60px;
-  border: none;
-  z-index: 9999;
-}
-
-/* Typing effect */
+/* ——— Typing Animation ——— */
 #typing-container {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   font-family: 'Courier New', monospace;
-  font-size: 2rem;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
+  font-size: 2rem; color: #fff;
+  white-space: nowrap; overflow: hidden;
   border-right: .1em solid rgba(255,255,255,0.75);
-  box-sizing: content-box;
   z-index: 200;
 }
-
-/* Pulsing heart */
 .heart {
-  margin-left: 0.25em;
+  margin-left: .25em;
   animation: pulse 1s ease-in-out infinite alternate;
 }
+#typing-subtext {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem; color: #e6ccff;
+  margin-top: .5em; white-space: pre-wrap;
+  opacity: 0; overflow: hidden;
+  border-right: .1em solid rgba(230,204,255,0.75);
+  display: inline-block;
+}
 
+/* ——— Music iframe (hidden) ——— */
+#music-frame {
+  position: fixed; bottom: 10px; right: 10px;
+  width: 0; height: 0; border: none; z-index: 9999;
+}
+
+/* ——— Animations ——— */
+@keyframes bgPulse {
+  0%,100% { background-position: 0% 50%; }
+  50%     { background-position:100% 50%; }
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%     { transform: translateX(-5px); }
+  50%     { transform: translateX(5px); }
+}
+@keyframes floatImage {
+  0%   { transform: translate(0,0) scale(var(--scale)); opacity:var(--startOpacity); filter:blur(var(--blur)); }
+  20%  { opacity:1; filter:blur(0); }
+  100% { transform: translate(var(--dx),var(--dy)) scale(var(--scale)); opacity:0; filter:blur(var(--blur)); }
+}
+@keyframes floatAround {
+  0%   { transform: translate(0,0) scale(1); opacity:0; filter:blur(2px); }
+  20%  { opacity:1; filter:blur(0); }
+  80%  { opacity:0.6; }
+  100% { transform: translate(var(--dx),var(--dy)) scale(var(--scale)); opacity:0; filter:blur(var(--blur)); }
+}
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0.9) rotate(0deg); opacity:1; }
+  100% { transform: translateY(-20vh) scale(1.2) rotate(20deg); opacity:0; }
+}
 @keyframes pulse {
   from { transform: scale(1); }
   to   { transform: scale(1.3); }
 }
 
-#typing-subtext {
-  font-family: 'Courier New', monospace;
-  font-size: 1.5rem;
-  color: #e6ccff;
-  margin-top: 0.5em;
-  white-space: pre-wrap;
-  opacity: 0;            /* hidden until typed */
-  border-right: .1em solid rgba(230,204,255,0.75);
-  overflow: hidden;
-  display: inline-block;
+/* ——— Responsive Tweaks ——— */
+@media (max-width: 768px) {
+  .floating-image { width:120px !important; height:120px !important; }
+  #hidden-image    { width:100px; }
 }
-
-#button-container {
-  opacity: 0;            /* keep hidden */
-  transition: opacity 1s ease-in;
-  margin-top: 1em;
+@media (max-width: 480px) {
+  .floating-image { width:80px !important; height:80px !important; }
+  #hidden-image    { width:80px; }
 }
