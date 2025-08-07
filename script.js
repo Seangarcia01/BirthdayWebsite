@@ -66,37 +66,39 @@ const imagePaths = [
 ];
 
 function spawnImage() {
-  // Gather currently-displayed src paths
-  const existing = new Set(
+  // Build a set of filenames already on-screen (e.g. "1.jpg")
+  const existingFiles = new Set(
     Array.from(imageContainer.querySelectorAll('img.floating-image'))
       .map(img => img.src.split('/').pop())
   );
 
-  // Try up to 5 times to pick a new image
-  let path, tries = 0;
+  // Try up to 5 times to pick an image not already shown
+  let path, file, tries = 0;
   do {
-    path = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+    path = imagePaths[Math.floor(Math.random() * imagePaths.length)]; 
+    // path is something like "assets/1.jpg"
+    file = path.split('/').pop();                        // get "1.jpg"
     tries++;
-  } while (tries < 5 && existing.has(path));
+  } while (tries < 5 && existingFiles.has(file));
 
-  // If after 5 tries we still picked one in use, just return (skip)
-  if (existing.has(path)) return;
+  // If after 5 tries it's still a duplicate, bail out
+  if (existingFiles.has(file)) return;
 
-  // Now create and animate your image
+  // Create and animate
   const img = document.createElement('img');
-  img.src = `assets/${path}`;      // adjust if your paths include assets/
+  img.src       = path;            // use the exact relative path
   img.className = 'floating-image';
 
-  // Random position
+  // Random start position
   img.style.left = `${Math.random() * 100}%`;
   img.style.top  = `${Math.random() * 100}%`;
 
-  // Random animation vars
-  img.style.setProperty('--dx',   (Math.random()-0.5)*300 + "px");
-  img.style.setProperty('--dy',   (Math.random()-0.5)*300 + "px");
-  img.style.setProperty('--scale',(0.5 + Math.random()).toString());
-  img.style.setProperty('--blur', (Math.random()*2) + "px");
-  img.style.setProperty('--startOpacity',(0.2 + Math.random()*0.4).toString());
+  // Random animation variables
+  img.style.setProperty('--dx', (Math.random() - 0.5)*300 + 'px');
+  img.style.setProperty('--dy', (Math.random() - 0.5)*300 + 'px');
+  img.style.setProperty('--scale', (0.5 + Math.random()).toString());
+  img.style.setProperty('--blur', (Math.random()*2) + 'px');
+  img.style.setProperty('--startOpacity', (0.2 + Math.random()*0.4).toString());
   img.style.zIndex = Math.floor(Math.random() * 10) + 1;
 
   imageContainer.appendChild(img);
