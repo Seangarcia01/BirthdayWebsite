@@ -267,7 +267,7 @@ html, body {
     /* Allow text to wrap and shrink font */
   #typing-container {
     white-space: normal;      /* allow wrapping */
-    font-size: 1.4rem;        /* smaller font */
+    font-size: 1.1rem;        /* smaller font */
     width: 90vw;              /* constrain width */
   }
 
@@ -280,7 +280,7 @@ html, body {
     font-size: 1.2rem;
     width: 90vw;
   }
-  
+
   #button-container {
     flex-direction: column;
     gap: 1rem;
