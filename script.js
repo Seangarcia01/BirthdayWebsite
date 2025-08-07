@@ -218,7 +218,7 @@ document.addEventListener("wheel", (e) => {
 }, { passive: false });
 
 // ——— Extended Typing Sequence ———
-const line1 = "Happy Birthday,<br>my Love!";
+const line1 = "Happy Birthday,<br>my Love! ❤️";
 const line2 = "May your day be as wonderful as you are...";
 const el1 = document.getElementById("typing-text");
 const el2 = document.getElementById("typing-subtext");
