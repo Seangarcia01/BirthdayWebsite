@@ -264,16 +264,23 @@ html, body {
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  #main-image img {
-    width: 80vw;
-    max-height: 40vh;
+    /* Allow text to wrap and shrink font */
+  #typing-container {
+    white-space: normal;      /* allow wrapping */
+    font-size: 1.4rem;        /* smaller font */
+    width: 90vw;              /* constrain width */
   }
 
-  #main-caption {
+  #typing-container .heart {
+    font-size: 1.4rem;        /* match heart size */
+  }
+
+  #typing-subtext {
+    white-space: normal;
     font-size: 1.2rem;
-    margin-top: 0.5rem;
+    width: 90vw;
   }
-
+  
   #button-container {
     flex-direction: column;
     gap: 1rem;
