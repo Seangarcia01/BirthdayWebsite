@@ -203,12 +203,3 @@ document.addEventListener("wheel", (e) => {
   }
   setZoom(zoomLevel);
 }, { passive: false });
-
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('toggle-music-btn');
-  const iframe = document.getElementById('music-frame');
-
-  btn.addEventListener('click', () => {
-    iframe.classList.toggle('hidden');
-  });
-});
