@@ -203,3 +203,8 @@ document.addEventListener("wheel", (e) => {
   }
   setZoom(zoomLevel);
 }, { passive: false });
+
+document.getElementById('toggle-music').addEventListener('click', () => {
+  const iframe = document.getElementById('music-frame');
+  iframe.style.display = (iframe.style.display === 'none') ? 'block' : 'none';
+});
