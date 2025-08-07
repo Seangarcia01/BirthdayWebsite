@@ -328,3 +328,28 @@ html, body {
   border: none;
   z-index: 9999;
 }
+
+/* Typing effect */
+#typing-container {
+  display: flex;
+  align-items: center;
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: .1em solid rgba(255,255,255,0.75);
+  box-sizing: content-box;
+  z-index: 200;
+}
+
+/* Pulsing heart */
+.heart {
+  margin-left: 0.25em;
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.3); }
+}

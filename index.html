@@ -17,16 +17,13 @@
     </div>
     <!-- ✅ End Zoom Wrapper -->
 
-    <!-- Centered container for image and caption (outside zoom area) -->
+    <!-- Centered container for typing message (replacing static image + heading) -->
     <div id="main-center">
-      <div id="main-caption">
-        <p>Happy Birthday, Love! 💜</p>
-      </div>
-      <div id="main-image">
-        <img src="assets/happy_birthday.svg" alt="happy_birthday">
+      <div id="typing-container">
+        <span id="typing-text"></span><span class="heart">💜</span>
       </div>
       <div id="button-container">
-        <a href="reasons.html" id="proceed-btn">Next Page</a>
+        <a href="pages/reasons.html" id="proceed-btn">Next Page</a>
         <button id="no-btn">No</button>
       </div>
     </div>
@@ -36,7 +33,6 @@
   </div>
 
   <iframe src="music.html" id="music-frame"></iframe>
-  
   <script src="script.js" defer></script>
 </body>
 </html>
