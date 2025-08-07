@@ -66,26 +66,37 @@ const imagePaths = [
 ];
 
 function spawnImage() {
+  // Gather currently-displayed src paths
+  const existing = new Set(
+    Array.from(imageContainer.querySelectorAll('img.floating-image'))
+      .map(img => img.src.split('/').pop())
+  );
+
+  // Try up to 5 times to pick a new image
+  let path, tries = 0;
+  do {
+    path = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+    tries++;
+  } while (tries < 5 && existing.has(path));
+
+  // If after 5 tries we still picked one in use, just return (skip)
+  if (existing.has(path)) return;
+
+  // Now create and animate your image
   const img = document.createElement('img');
-  img.src = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+  img.src = `assets/${path}`;      // adjust if your paths include assets/
   img.className = 'floating-image';
 
-  const x = Math.random() * 100;
-  const y = Math.random() * 100;
-  img.style.left = `${x}%`;
-  img.style.top = `${y}%`;
+  // Random position
+  img.style.left = `${Math.random() * 100}%`;
+  img.style.top  = `${Math.random() * 100}%`;
 
-  const dx = (Math.random() - 0.5) * 300 + "px";
-  const dy = (Math.random() - 0.5) * 300 + "px";
-  const scale = 0.5 + Math.random();
-  const blur = Math.random() * 2 + "px";
-  const startOpacity = 0.2 + Math.random() * 0.4;
-
-  img.style.setProperty('--dx', dx);
-  img.style.setProperty('--dy', dy);
-  img.style.setProperty('--scale', scale);
-  img.style.setProperty('--blur', blur);
-  img.style.setProperty('--startOpacity', startOpacity);
+  // Random animation vars
+  img.style.setProperty('--dx',   (Math.random()-0.5)*300 + "px");
+  img.style.setProperty('--dy',   (Math.random()-0.5)*300 + "px");
+  img.style.setProperty('--scale',(0.5 + Math.random()).toString());
+  img.style.setProperty('--blur', (Math.random()*2) + "px");
+  img.style.setProperty('--startOpacity',(0.2 + Math.random()*0.4).toString());
   img.style.zIndex = Math.floor(Math.random() * 10) + 1;
 
   imageContainer.appendChild(img);
