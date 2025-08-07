@@ -301,3 +301,13 @@ html, body {
     padding: 0.6rem 1rem;
   }
 }
+
+#music-frame {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 200px;
+  height: 60px;
+  border: none;
+  z-index: 9999;
+}
