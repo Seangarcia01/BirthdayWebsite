@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <title>Music Player</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       background: transparent;
+      overflow: hidden;
     }
 
     #mute-toggle {
@@ -42,44 +44,46 @@
   </style>
 </head>
 <body>
-  <audio id="bg-music" autoplay loop>
-    <source src="songs/NAIILANG-LE_JOHN.mp3" type="audio/mpeg" />
+  <audio id="bg-music" preload="auto" autoplay loop>
+    <source src="songs/DAISIES.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Mute Toggle Icon Button -->
   <button id="mute-toggle" title="Mute/Unmute">🔊</button>
 
   <script>
     const music = document.getElementById('bg-music');
     const muteBtn = document.getElementById('mute-toggle');
 
-    // Restore saved music time
+    // Restore time if available
     const savedTime = sessionStorage.getItem('musicTime');
     if (savedTime) {
       music.currentTime = parseFloat(savedTime);
     }
 
-    // Save current playback time
+    // Save playback time every 500ms
     setInterval(() => {
       if (!music.paused) {
         sessionStorage.setItem('musicTime', music.currentTime);
       }
     }, 500);
 
-    // Initial volume
+    // Default volume
     music.volume = 0.5;
 
-    // Mute/unmute toggle
+    // Toggle mute/unmute
     muteBtn.addEventListener('click', () => {
       music.muted = !music.muted;
       muteBtn.textContent = music.muted ? "🔈" : "🔊";
     });
 
-    // Autoplay fix
+    // Ensure playback starts on user gesture (required in some browsers)
     window.addEventListener('click', () => {
       music.play().catch(() => {});
     }, { once: true });
+
+    // Try to start music immediately (may fail silently)
+    music.play().catch(() => {});
   </script>
 </body>
 </html>
