@@ -9,22 +9,36 @@
       background: transparent;
     }
 
-    .music-controls {
+    #toggle-controls {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px;
+      z-index: 10001;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .music-controls {
+      position: fixed;
+      bottom: 70px; /* Positioned above the toggle button */
+      right: 20px;
+      background: rgba(0, 0, 0, 0.75);
+      padding: 18px;
       border-radius: 15px;
       backdrop-filter: blur(10px);
       color: white;
       font-family: sans-serif;
-      display: flex;
+      display: none; /* Hidden by default */
+      flex-direction: row;
       align-items: center;
       gap: 12px;
       z-index: 10000;
       max-width: 90vw;
-      overflow: visible;
     }
 
     input[type=range] {
@@ -33,7 +47,7 @@
       cursor: pointer;
     }
 
-    button {
+    button.music-btn {
       font-size: 24px;
       background: none;
       border: none;
@@ -42,14 +56,14 @@
       padding: 5px;
     }
 
-    button:hover {
+    button.music-btn:hover {
       transform: scale(1.1);
     }
 
     @media (max-width: 600px) {
       .music-controls {
         flex-direction: column;
-        bottom: 15px;
+        bottom: 80px;
         right: 15px;
         padding: 15px;
         gap: 10px;
@@ -67,16 +81,22 @@
     Your browser does not support the audio element.
   </audio>
 
-  <div class="music-controls">
+  <!-- Toggle Button -->
+  <button id="toggle-controls">🎵</button>
+
+  <!-- Music Controls -->
+  <div class="music-controls" id="music-controls">
     <label for="volume">🔊</label>
     <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
-    <button id="mute-toggle" title="Mute/Unmute">🔇</button>
+    <button class="music-btn" id="mute-toggle" title="Mute/Unmute">🔇</button>
   </div>
 
   <script>
     const music = document.getElementById('bg-music');
     const volumeSlider = document.getElementById('volume');
     const muteBtn = document.getElementById('mute-toggle');
+    const controls = document.getElementById('music-controls');
+    const toggleBtn = document.getElementById('toggle-controls');
 
     // Restore saved music time
     const savedTime = sessionStorage.getItem('musicTime');
@@ -103,6 +123,11 @@
     muteBtn.addEventListener('click', () => {
       music.muted = !music.muted;
       muteBtn.textContent = music.muted ? "🔈" : "🔇";
+    });
+
+    // Show/hide controls
+    toggleBtn.addEventListener('click', () => {
+      controls.style.display = controls.style.display === 'none' ? 'flex' : 'none';
     });
 
     // Autoplay fix
