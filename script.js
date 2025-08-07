@@ -218,42 +218,43 @@ document.addEventListener("wheel", (e) => {
 }, { passive: false });
 
 // ——— Extended Typing Sequence ———
-const line1 = "Happy Birthday, my Love!";
+const line1 = "Happy Birthday,<br>my Love!";
 const line2 = "May your day be as wonderful as you are...";
 const el1 = document.getElementById("typing-text");
 const el2 = document.getElementById("typing-subtext");
 const btns = document.getElementById("button-container");
 let i1 = 0, i2 = 0;
 
-// Type first line
+// Type first line with <br> support
 function typeLine1() {
   if (i1 < line1.length) {
-    el1.textContent += line1[i1++];
+    if (line1.slice(i1, i1 + 4) === "<br>") {
+      el1.innerHTML += "<br>";
+      i1 += 4;
+    } else {
+      el1.innerHTML += line1[i1++];
+    }
     setTimeout(typeLine1, 100);
   } else {
-    // remove cursor
     document.getElementById("typing-container").style.borderRight = "none";
-    // start second line
     el2.style.opacity = 1;
     typeLine2();
   }
 }
 
-// Type second line
+// Type second line (no <br>)
 function typeLine2() {
   if (i2 < line2.length) {
     el2.textContent += line2[i2++];
     setTimeout(typeLine2, 80);
   } else {
-    // done both lines → show buttons
     el2.style.borderRight = "none";
     btns.style.opacity = 1;
   }
 }
 
-// initialize
+// Initialize typing
 window.addEventListener("load", () => {
-  // hide button until both lines done
   btns.style.opacity = 0;
   typeLine1();
 });
