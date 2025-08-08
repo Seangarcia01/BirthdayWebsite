@@ -33,9 +33,11 @@ body.fade-in {
 
 .reasons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  justify-content: center;
+  justify-items: center;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .reason-card {
@@ -167,14 +169,6 @@ body.fade-in {
   height: 60px;
   border: none;
   z-index: 9999;
-}
-
-/* Shared fixes for both cards and popup */
-.reasons-wrapper,
-#popup-card {
-  margin: 0 auto;
-  max-width: 90vw;
-  box-sizing: border-box;
 }
 
 /* Card container responsiveness */
