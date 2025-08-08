@@ -91,28 +91,35 @@ h1 { margin-bottom: 1rem; }
 
 .feedback {
   position: fixed;
-  top: 40%;
+  top: 20%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  border-radius: 8px;
-  color: white;
+  transform: translateX(-50%);
+  background-color: #222;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-size: 24px;
   font-weight: bold;
-  z-index: 10000;
+  z-index: 9999;
   opacity: 0;
-  animation: feedbackFade 1.5s ease forwards;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  scale: 0.8;
+}
+
+.feedback.show {
+  opacity: 1;
+  pointer-events: auto;
+  scale: 1;
 }
 
 .feedback.correct {
-  background-color: #28a745;
-  box-shadow: 0 0 20px #28a745;
+  background-color: #4caf50;
 }
 
 .feedback.wrong {
-  background-color: #dc3545;
-  box-shadow: 0 0 20px #dc3545;
-  animation: feedbackShake 1.5s ease, feedbackFade 1.5s ease forwards;
+  background-color: #e53935;
 }
 
 @keyframes feedbackFade {

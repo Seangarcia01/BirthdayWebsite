@@ -155,19 +155,24 @@ function shuffle(array) {
 backBtn.addEventListener('click', () => history.back());
 
 function showFeedback(type) {
-  const message = document.createElement('div');
-  message.className = `feedback ${type}`;
-  message.innerText = type === 'correct' ? '🎉 Nice Match!' : '❌ Try Again!';
-  document.body.appendChild(message);
+  const feedback = document.getElementById('feedback');
+  if (!feedback) return;
 
-  // Play sound (make sure to preload and allow user interaction)
-  const audio = new Audio(type === 'correct' ? 'sounds/correct.mp3' : 'sounds/wrong.mp3');
-  audio.play();
+  feedback.className = 'feedback show ' + type;
 
-  // Optional: Add vibration (mobile)
-  if (navigator.vibrate) {
-    navigator.vibrate(type === 'correct' ? 200 : [100, 50, 100]);
+  // Play sound
+  if (type === 'correct') {
+    new Audio('sounds/correct.mp3').play();
+  } else if (type === 'wrong') {
+    new Audio('sounds/wrong.mp3').play();
   }
 
-  setTimeout(() => message.remove(), 1500);
+  // Optional: Vibrate
+  if (navigator.vibrate) {
+    navigator.vibrate(type === 'correct' ? 100 : [100, 50, 100]);
+  }
+
+  setTimeout(() => {
+    feedback.classList.remove('show', type);
+  }, 1200);
 }
