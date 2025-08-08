@@ -16,7 +16,11 @@ let matchedCount = 0;
 
 // Preload audio
 const correctSound = new Audio('sounds/correct.mp3');
+correctSound.volume = 1.0; // max volume (range: 0.0 to 1.0)
+
 const wrongSound = new Audio('sounds/wrong.mp3');
+wrongSound.volume = 1.0;
+
 correctSound.load();
 wrongSound.load();
 
