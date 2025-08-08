@@ -11,8 +11,16 @@
     <h1>Find the Matching Photos</h1>
     <div id="grid" class="grid"></div>
     <div id="message" class="message"></div>
-    <button id="next-btn" class="next-btn hidden">Continue</button>
+    
+    <!-- Back & Next buttons -->
+    <div class="controls">
+      <button id="back-btn" class="control-btn">← Back</button>
+      <button id="next-btn" class="control-btn hidden">Continue →</button>
+    </div>
   </div>
+
+  <!-- Music iframe (same as other pages) -->
+  <iframe src="music.html" id="music-frame" style="display:none;" allow="autoplay"></iframe>
 
   <script src="game.js"></script>
 </body>
