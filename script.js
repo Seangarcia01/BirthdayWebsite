@@ -62,7 +62,7 @@ const imagePaths = [
   "assets/7.jpg",
   "assets/8.jpg",
   "assets/9.jpg",
-  "assets/calle2.jpg",
+  "assets/10.jpg",
 ];
 
 function spawnImage() {
