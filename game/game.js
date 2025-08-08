@@ -77,11 +77,13 @@ function checkForMatch() {
   if (isMatch) {
     disableCards();
     showMessage('Correct! 🎉');
+    showFeedback('correct'); // ← ADD THIS
     matchedCount++;
     saveMatch(firstCard.dataset.src);
     if (matchedCount === PAIRS) showNext();
   } else {
     showMessage('Try again…', true);
+    showFeedback('wrong'); // ← ADD THIS
     lockBoard = true;
     setTimeout(() => {
       firstCard.classList.remove('flipped');
