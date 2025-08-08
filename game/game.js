@@ -151,3 +151,21 @@ function shuffle(array) {
 
 // Back button handler
 backBtn.addEventListener('click', () => history.back());
+
+function showFeedback(type) {
+  const message = document.createElement('div');
+  message.className = `feedback ${type}`;
+  message.innerText = type === 'correct' ? '🎉 Nice Match!' : '❌ Try Again!';
+  document.body.appendChild(message);
+
+  // Play sound (make sure to preload and allow user interaction)
+  const audio = new Audio(type === 'correct' ? 'sounds/correct.mp3' : 'sounds/wrong.mp3');
+  audio.play();
+
+  // Optional: Add vibration (mobile)
+  if (navigator.vibrate) {
+    navigator.vibrate(type === 'correct' ? 200 : [100, 50, 100]);
+  }
+
+  setTimeout(() => message.remove(), 1500);
+}

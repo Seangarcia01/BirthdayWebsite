@@ -88,3 +88,35 @@ h1 { margin-bottom: 1rem; }
 .hidden {
   display: none;
 }
+
+.feedback {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  color: white;
+  border-radius: 10px;
+  z-index: 1000;
+  animation: popUp 0.5s ease, fadeOut 1s 0.5s forwards;
+}
+
+.feedback.correct {
+  background: #4CAF50;
+  box-shadow: 0 0 20px #4CAF50;
+}
+
+.feedback.wrong {
+  background: #f44336;
+  box-shadow: 0 0 20px #f44336;
+}
+
+@keyframes popUp {
+  from { transform: translateX(-50%) scale(0.8); opacity: 0; }
+  to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
