@@ -14,6 +14,12 @@ let secondCard  = null;
 let lockBoard   = false;
 let matchedCount = 0;
 
+// Preload audio
+const correctSound = new Audio('sounds/correct.mp3');
+const wrongSound = new Audio('sounds/wrong.mp3');
+correctSound.load();
+wrongSound.load();
+
 // Load or initialize state
 let state = JSON.parse(localStorage.getItem('matchState') || 'null');
 if (state && (Date.now() - state.timestamp) < TIMEOUT_MIN) {
@@ -158,21 +164,29 @@ function showFeedback(type) {
   const feedback = document.getElementById('feedback');
   if (!feedback) return;
 
+  // Set the message text
+  feedback.textContent = type === 'correct' ? 'Correct!' : 'Wrong!';
+
+  // Set the class for styling
   feedback.className = 'feedback show ' + type;
 
-  // Play sound
+  // Play preloaded sound
   if (type === 'correct') {
-    new Audio('sounds/correct.mp3').play();
+    correctSound.currentTime = 0;
+    correctSound.play();
   } else if (type === 'wrong') {
-    new Audio('sounds/wrong.mp3').play();
+    wrongSound.currentTime = 0;
+    wrongSound.play();
   }
 
-  // Optional: Vibrate
+  // Vibration feedback (optional)
   if (navigator.vibrate) {
     navigator.vibrate(type === 'correct' ? 100 : [100, 50, 100]);
   }
 
+  // Hide feedback after 1.2 seconds
   setTimeout(() => {
     feedback.classList.remove('show', type);
+    feedback.textContent = ''; // clear message
   }, 1200);
 }
