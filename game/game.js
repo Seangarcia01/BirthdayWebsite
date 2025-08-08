@@ -79,6 +79,9 @@ function checkForMatch() {
     setTimeout(() => {
       firstCard.classList.remove('flipped');
       secondCard.classList.remove('flipped');
+      // ← Reset pointers here so old cards don’t stick around
+      firstCard = null;
+      secondCard = null;
       lockBoard = false;
       clearMessage();
     }, 1000);
