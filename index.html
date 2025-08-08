@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday 💜</title>
-  <link rel="stylesheet" href="styles.css" />
-</head> 
-<body>
-  <div id="parallax-wrapper">
-    
-    <!-- ✅ Begin Zoom Wrapper -->
-    <div id="zoom-wrapper">
-      <div id="decorations-container"></div>
-      <div id="image-container"></div>
-      <div id="message-container"></div>
-    </div>
-    <!-- ✅ End Zoom Wrapper -->a
-
-        <!-- Centered container for typing messages -->
-    <div id="main-center">
-      <div id="typing-container">
-        <span id="typing-text"></span><span class="heart">💜</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday 💜</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head> 
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
+  </script>
+  <body>
+    <div id="parallax-wrapper">
+      
+      <!-- ✅ Begin Zoom Wrapper -->
+      <div id="zoom-wrapper">
+        <div id="decorations-container"></div>
+        <div id="image-container"></div>
+        <div id="message-container"></div>
       </div>
-      <div id="typing-subtext"></div>
-      <div id="button-container">
-        <a href="reasons.html" id="proceed-btn">Next Page</a>
-        <button id="no-btn">No</button>
+      <!-- ✅ End Zoom Wrapper -->a
+
+          <!-- Centered container for typing messages -->
+      <div id="main-center">
+        <div id="typing-container">
+          <span id="typing-text"></span><span class="heart">💜</span>
+        </div>
+        <div id="typing-subtext"></div>
+        <div id="button-container">
+          <a href="reasons.html" id="proceed-btn">Next Page</a>
+          <button id="no-btn">No</button>
+        </div>
       </div>
+
+      <!-- Hidden image stays outside too -->
+      <img id="hidden-image" src="assets/hidden-image.jpg" alt="Surprise!" />
     </div>
 
-    <!-- Hidden image stays outside too -->
-    <img id="hidden-image" src="assets/hidden-image.jpg" alt="Surprise!" />
-  </div>
-
-  <iframe src="music.html" id="music-frame"></iframe>
-  <script src="script.js" defer></script>
-</body>
+    <iframe src="music.html" id="music-frame"></iframe>
+    <script src="script.js" defer></script>
+  </body>
 </html>

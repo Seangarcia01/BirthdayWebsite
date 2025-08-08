@@ -30,6 +30,15 @@ html, body {
   animation: bgPulse 20s ease infinite;
 }
 
+body {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-in {
+  opacity: 1;
+}
+
 /* Parallax container */
 #parallax-wrapper {
   width: 100%;
