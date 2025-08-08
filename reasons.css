@@ -162,3 +162,57 @@ body {
   border: none;
   z-index: 9999;
 }
+
+/* Tablet and small devices */
+@media (max-width: 768px) {
+  .reasons-wrapper {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+
+  .reasons-grid {
+    grid-template-columns: 1fr 1fr; /* Two cards per row */
+    gap: 1rem;
+  }
+
+  .reason-card {
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+
+  .reasons-header {
+    font-size: 1.8rem;
+  }
+
+  #popup-card {
+    width: 80%;
+    padding: 2rem;
+  }
+}
+
+/* Phone and extra small devices */
+@media (max-width: 480px) {
+  .reasons-wrapper {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .reasons-grid {
+    grid-template-columns: 1fr; /* One card per row */
+    gap: 1rem;
+  }
+
+  .reason-card {
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+
+  .reasons-header {
+    font-size: 1.5rem;
+  }
+
+  #popup-card {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
