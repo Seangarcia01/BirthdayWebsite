@@ -171,20 +171,25 @@ body.fade-in {
   z-index: 9999;
 }
 
-/* Card container responsiveness */
+/* Tablet / small screens */
 @media (max-width: 768px) {
   .reasons-wrapper {
     padding: 1.5rem;
+    max-width: 700px;      /* limit overall width */
+    margin: 0 auto;
   }
 
   .reasons-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
   .reason-card {
+    width: 100%;           /* fill the grid column */
+    box-sizing: border-box;
     padding: 1rem;
     font-size: 1rem;
+    margin: 0;             /* remove any extra margin */
   }
 
   #popup-card {
@@ -193,18 +198,25 @@ body.fade-in {
   }
 }
 
+/* Phones */
 @media (max-width: 480px) {
   .reasons-wrapper {
     padding: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .reasons-grid {
     grid-template-columns: 1fr;
+    gap: 0.8rem;
   }
 
   .reason-card {
+    width: 100%;
+    box-sizing: border-box;
     padding: 0.9rem;
     font-size: 0.95rem;
+    margin: 0;
   }
 
   #popup-card {
