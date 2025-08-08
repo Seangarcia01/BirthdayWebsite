@@ -1,0 +1,67 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#1a001a,#330033,#4d004d);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+.game-container {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+}
+h1 { margin-bottom: 1rem; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(80px,1fr));
+  gap: 0.5rem;
+}
+.card {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* square */
+  perspective: 600px;
+}
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+.card.flipped .card-inner { transform: rotateY(180deg); }
+.card-front,
+.card-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: 8px;
+}
+.card-front {
+  background: #222;
+}
+.card-back {
+  transform: rotateY(180deg);
+  background-size: cover;
+  background-position: center;
+}
+.message {
+  margin-top: 1rem;
+  height: 1.5em;
+  font-weight: bold;
+}
+.next-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #33ffcc;
+  color: #000;
+  cursor: pointer;
+}
+
+.hidden { 
+    display: none; 
+}
