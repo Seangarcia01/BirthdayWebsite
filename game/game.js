@@ -1,58 +1,124 @@
-// Configuration
-const IMAGE_COUNT = 20;                    // number of unique images
-const PAIRS = IMAGE_COUNT;                 // total pairs
-const TIMEOUT_MIN = 15 * 60 * 1000;        // 15 minutes
+// game.js (replace whole file)
 
-// UI elements
+// ================== CONFIG ==================
+const IMAGE_COUNT = 20;                     // number of unique images
+const PAIRS = IMAGE_COUNT;                  // total pairs
+const TIMEOUT_MIN = 15 * 60 * 1000;         // 15 minutes
+
+// ================== UI ==================
 const gridEl   = document.getElementById('grid');
 const msgEl    = document.getElementById('message');
 const nextBtn  = document.getElementById('next-btn');
 const backBtn  = document.getElementById('back-btn');
+const feedbackEl = document.getElementById('feedback');
 
-let firstCard   = null;
-let secondCard  = null;
-let lockBoard   = false;
+if (!gridEl || !msgEl || !nextBtn || !backBtn) {
+  console.error('Missing required DOM elements (grid/message/next/back).');
+}
+
+// ================== STATE ==================
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
 let matchedCount = 0;
+let nextAttached = false;
 
-// Preload audio
+// ================== AUDIO (preload + safe fallback) ==================
 const correctSound = new Audio('sounds/correct.mp3');
-correctSound.volume = 1.0; // max volume (range: 0.0 to 1.0)
+correctSound.preload = 'auto';
+correctSound.volume = 1.0;
 
 const wrongSound = new Audio('sounds/wrong.mp3');
+wrongSound.preload = 'auto';
 wrongSound.volume = 1.0;
 
-correctSound.load();
-wrongSound.load();
+// try to use celebration audio element if present, otherwise fallback to Audio()
+let celebrationSoundElem = document.getElementById('celebration-sound');
+let celebrationSound = celebrationSoundElem || new Audio('sounds/celebration.mp3');
+if (!celebrationSoundElem) {
+  celebrationSound.preload = 'auto';
+  celebrationSound.volume = 1.0;
+}
 
-// Load or initialize state
-let state = JSON.parse(localStorage.getItem('matchState') || 'null');
+// ================== CONFETTI LOADER ==================
+function loadConfettiIfNeeded() {
+  return new Promise((resolve) => {
+    if (window.confetti) return resolve();
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => {
+      console.warn('Could not load confetti library.');
+      resolve();
+    };
+    document.head.appendChild(s);
+  });
+}
+
+function launchConfetti() {
+  if (!window.confetti) {
+    // if not loaded, try to load then fire
+    return loadConfettiIfNeeded().then(() => {
+      if (window.confetti) {
+        _doConfetti();
+      }
+    });
+  }
+  _doConfetti();
+}
+
+function _doConfetti() {
+  try {
+    confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 }});
+    setTimeout(() => {
+      confetti({ particleCount: 80, spread: 70, origin: { x: 0.2, y: 0.6 }});
+      confetti({ particleCount: 80, spread: 70, origin: { x: 0.8, y: 0.6 }});
+    }, 500);
+  } catch (e) {
+    console.warn('Confetti failed:', e);
+  }
+}
+
+// ================== PERSISTENCE ==================
+function saveState(obj) {
+  localStorage.setItem('matchState', JSON.stringify(obj));
+}
+
+function readState() {
+  return JSON.parse(localStorage.getItem('matchState') || 'null');
+}
+
+// ================== BOOT (restore or start new) ==================
+let state = readState();
 if (state && (Date.now() - state.timestamp) < TIMEOUT_MIN) {
   initBoard(state.shuffled);
-  matchedCount = state.matchedCount;
-  restoreMatches(state.matched);
-  if (matchedCount === PAIRS) showNext();
+  matchedCount = state.matchedCount || 0;
+  // restoreMatches requires cards to exist, so call after initBoard
+  restoreMatches(state.matched || []);
+  if (matchedCount === PAIRS) {
+    // small delay so UI is ready
+    setTimeout(showNext, 200);
+  }
 } else {
   startNewGame();
 }
 
-// Start a fresh game
 function startNewGame() {
-  const imgs = Array.from({ length: IMAGE_COUNT }, (_, i) => `game_images/${i+1}.jpg`);
-  let pairs = imgs.concat(imgs);
-  let shuffled = shuffle(pairs);
+  matchedCount = 0;
+  const imgs = Array.from({length: IMAGE_COUNT}, (_, i) => `game_images/${i+1}.jpg`);
+  const pairs = imgs.concat(imgs);
+  const shuffled = shuffle(pairs);
   initBoard(shuffled);
-  localStorage.setItem('matchState', JSON.stringify({
-    timestamp: Date.now(),
-    shuffled,
-    matched: [],
-    matchedCount: 0
-  }));
+  saveState({ timestamp: Date.now(), shuffled, matched: [], matchedCount: 0 });
+  nextBtn.classList.add('hidden');
 }
 
-// Build the card grid
+// ================== BOARD RENDER ==================
 function initBoard(shuffled) {
+  if (!gridEl) return;
   gridEl.innerHTML = '';
-  shuffled.forEach(src => {
+  shuffled.forEach((src) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.src = src;
@@ -67,33 +133,42 @@ function initBoard(shuffled) {
   });
 }
 
-// Handle card click
+// ================== INTERACTION ==================
 function onCardClick() {
   if (lockBoard) return;
   if (this.classList.contains('flipped')) return;
 
   this.classList.add('flipped');
+
   if (!firstCard) {
     firstCard = this;
     return;
   }
+
   secondCard = this;
   checkForMatch();
 }
 
-// Check if two selected cards match
 function checkForMatch() {
+  if (!firstCard || !secondCard) return;
+
   const isMatch = firstCard.dataset.src === secondCard.dataset.src;
+
   if (isMatch) {
+    // correct
     disableCards();
     showMessage('Correct! 🎉');
-    showFeedback('correct'); // ← ADD THIS
+    showFeedback('correct');
     matchedCount++;
     saveMatch(firstCard.dataset.src);
-    if (matchedCount === PAIRS) showNext();
+    // if finished
+    if (matchedCount === PAIRS) {
+      showNext();
+    }
   } else {
+    // wrong
     showMessage('Try again…', true);
-    showFeedback('wrong'); // ← ADD THIS
+    showFeedback('wrong');
     lockBoard = true;
     setTimeout(() => {
       firstCard.classList.remove('flipped');
@@ -106,52 +181,88 @@ function checkForMatch() {
   }
 }
 
-// Prevent matched cards from being clicked again
 function disableCards() {
-  firstCard.removeEventListener('click', onCardClick);
-  secondCard.removeEventListener('click', onCardClick);
+  if (firstCard) firstCard.removeEventListener('click', onCardClick);
+  if (secondCard) secondCard.removeEventListener('click', onCardClick);
   firstCard = secondCard = null;
 }
 
-// Show feedback message (and optional vibration)
+// ================== FEEDBACK ==================
 function showMessage(text, vibrate = false) {
+  if (!msgEl) return;
   msgEl.textContent = text;
   if (vibrate && navigator.vibrate) navigator.vibrate(200);
 }
+function clearMessage() { if (msgEl) msgEl.textContent = ''; }
 
-// Clear the feedback message
-function clearMessage() {
-  msgEl.textContent = '';
+function showFeedback(type) {
+  if (!feedbackEl) return;
+  feedbackEl.textContent = (type === 'correct') ? '🎉 Nice match!' : '❌ Try again!';
+  feedbackEl.className = `feedback show ${type}`;
+
+  try {
+    if (type === 'correct') {
+      correctSound.currentTime = 0;
+      correctSound.play().catch(()=>{});
+    } else {
+      wrongSound.currentTime = 0;
+      wrongSound.play().catch(()=>{});
+    }
+  } catch (e) {
+    console.warn('Audio play failed', e);
+  }
+
+  if (navigator.vibrate) navigator.vibrate(type === 'correct' ? 100 : [100,50,100]);
+
+  setTimeout(() => {
+    if (feedbackEl) {
+      feedbackEl.classList.remove('show', 'correct', 'wrong');
+      feedbackEl.textContent = '';
+    }
+  }, 1200);
 }
 
-// Reveal the Continue button when done
+// ================== SHOW NEXT (end-of-game) ==================
 function showNext() {
+  if (!nextBtn) return;
+
+  // reveal button once
   nextBtn.classList.remove('hidden');
   showMessage('All matched! Click Continue 🎉');
 
-  // 🎉 Play celebration sound
-  const celebrationSound = document.getElementById('celebration-sound');
-  celebrationSound.currentTime = 0;
-  celebrationSound.play();
+  // play celebration sound (safe)
+  try {
+    if (celebrationSound) {
+      celebrationSound.currentTime = 0;
+      celebrationSound.play().catch(() => {});
+    }
+  } catch (e) {
+    console.warn('Celebration sound play failed', e);
+  }
 
-  // 🎊 Trigger confetti
+  // confetti (load if needed)
   launchConfetti();
 
-  nextBtn.addEventListener('click', () => {
-    window.location.href = 'final_message.html';
-  }, { once: true });
+  // attach event only once
+  if (!nextAttached) {
+    nextAttached = true;
+    nextBtn.addEventListener('click', () => {
+      window.location.href = 'final_message.html';
+    }, { once: true });
+  }
 }
 
-// Save a matched card to localStorage
+// ================== SAVE / RESTORE HELPERS ==================
 function saveMatch(src) {
-  let st = JSON.parse(localStorage.getItem('matchState'));
-  st.matched.push(src);
+  const st = readState() || { timestamp: Date.now(), shuffled: [], matched: [], matchedCount: 0 };
+  st.matched = st.matched || [];
+  if (!st.matched.includes(src)) st.matched.push(src);
   st.matchedCount = matchedCount;
-  localStorage.setItem('matchState', JSON.stringify(st));
+  saveState(st);
 }
 
-// Restore previously matched cards on reload
-function restoreMatches(matched) {
+function restoreMatches(matched = []) {
+  if (!Array.isArray(matched)) return;
   document.querySelectorAll('.card').forEach(card => {
     if (matched.includes(card.dataset.src)) {
       card.classList.add('flipped');
@@ -160,9 +271,9 @@ function restoreMatches(matched) {
   });
 }
 
-// Fisher–Yates shuffle
+// ================== UTILS ==================
 function shuffle(array) {
-  let a = array.slice();
+  const a = array.slice();
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
@@ -170,59 +281,5 @@ function shuffle(array) {
   return a;
 }
 
-// Back button handler
-backBtn.addEventListener('click', () => history.back());
-
-function showFeedback(type) {
-  const feedback = document.getElementById('feedback');
-  if (!feedback) return;
-
-  // Set the message text
-  feedback.textContent = type === 'correct' ? 'Correct!' : 'Wrong!';
-
-  // Set the class for styling
-  feedback.className = 'feedback show ' + type;
-
-  // Play preloaded sound
-  if (type === 'correct') {
-    correctSound.currentTime = 0;
-    correctSound.play();
-  } else if (type === 'wrong') {
-    wrongSound.currentTime = 0;
-    wrongSound.play();
-  }
-
-  // Vibration feedback (optional)
-  if (navigator.vibrate) {
-    navigator.vibrate(type === 'correct' ? 100 : [100, 50, 100]);
-  }
-
-  // Hide feedback after 1.2 seconds
-  setTimeout(() => {
-    feedback.classList.remove('show', type);
-    feedback.textContent = ''; // clear message
-  }, 1200);
-}
-
-function launchConfetti() {
-  // Burst in the center
-  confetti({
-    particleCount: 120,
-    spread: 90,
-    origin: { y: 0.6 }
-  });
-
-  // Extra bursts for a more fun effect
-  setTimeout(() => {
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { x: 0.2, y: 0.6 }
-    });
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { x: 0.8, y: 0.6 }
-    });
-  }, 500);
-}
+// ================== BUTTONS ==================
+if (backBtn) backBtn.addEventListener('click', () => history.back());
