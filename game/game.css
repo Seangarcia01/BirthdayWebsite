@@ -25,16 +25,18 @@ h1 {
   font-size: 2.2rem;
 }
 
+/* Desktop-first grid sizing to fit entire screen */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* bigger cards */
+  grid-template-columns: repeat(4, 1fr); /* Adjust based on how many columns you need */
   gap: 1rem;
+  height: calc(100vh - 200px); /* leave space for header/messages/buttons */
 }
 
 .card {
   position: relative;
   width: 100%;
-  padding-top: 100%;
+  aspect-ratio: 1 / 1; /* perfect square without padding-top trick */
   perspective: 600px;
 }
 
