@@ -102,6 +102,7 @@ h1 {
   text-align: center;
   font-weight: bold;
   font-size: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 /* Controls (back / continue) */
