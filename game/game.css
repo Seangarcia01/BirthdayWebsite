@@ -24,7 +24,7 @@ body {
   max-width: 1200px;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 /* Header area (title + message) */
@@ -55,8 +55,8 @@ h1 {
 .grid {
   flex: 1 1 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* smaller cards */
-  gap: 0.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
   align-content: center;
 }
 
@@ -98,20 +98,20 @@ h1 {
 
 /* Feedback message area */
 .message {
-  flex: 0 0 auto;
   text-align: center;
   font-weight: bold;
   font-size: 1rem;
-  margin-bottom: 0.3rem;
+  /* center it between grid and buttons */
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 /* Controls (back / continue) */
 .controls {
-  flex: 0 0 auto;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 0.2rem;
+  margin-top: 0.5rem;
 }
 
 .control-btn, .next-btn {
