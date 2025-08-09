@@ -85,18 +85,28 @@ function onCardClick() {
 
 // ================== CHECK MATCH ==================
 function checkForMatch() {
+  // 🔹 Ensure both cards exist before comparing
   if (!firstCard || !secondCard) {
     resetBoard();
     return;
   }
 
-  const isMatch = firstCard.dataset.src === secondCard.dataset.src;
+  const src1 = firstCard.dataset?.src;
+  const src2 = secondCard.dataset?.src;
+
+  // If either src is missing, reset to avoid crash
+  if (!src1 || !src2) {
+    resetBoard();
+    return;
+  }
+
+  const isMatch = src1 === src2;
   if (isMatch) {
     disableCards();
     showMessage('Correct! 🎉');
     showFeedback('correct');
     matchedCount++;
-    saveMatch(firstCard.dataset.src);
+    saveMatch(src1);
 
     if (matchedCount === PAIRS) {
       showNext();
