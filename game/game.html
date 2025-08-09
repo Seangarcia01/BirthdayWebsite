@@ -2,27 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Memory Match Game</title>
   <link rel="stylesheet" href="game.css" />
 </head>
 <body>
   <div class="game-container">
+    <!-- Title -->
     <h1>Find the Matching Photos</h1>
+
+    <!-- Game Grid -->
     <div id="grid" class="grid"></div>
+
+    <!-- Status Messages -->
     <div id="message" class="message"></div>
     <div id="feedback" class="feedback"></div>
 
-    <!-- Back & Next buttons -->
+    <!-- Navigation Controls -->
     <div class="controls">
       <button id="back-btn" class="control-btn">← Back</button>
       <button id="next-btn" class="control-btn hidden">Continue →</button>
     </div>
   </div>
 
+  <!-- Confetti Script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Celebration Sound -->
   <audio id="celebration-sound" src="sounds/celebration.mp3" preload="auto"></audio>
+
+  <!-- Background Music -->
   <iframe src="/music.html" id="music-frame"></iframe>
+
+  <!-- Game Logic -->
   <script src="game.js"></script>
 </body>
 </html>
