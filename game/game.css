@@ -117,7 +117,6 @@ h1 {
 .control-btn, .next-btn {
   padding: 0.4rem 0.8rem; /* smaller vertical space */
   font-size: 0.9rem;       /* slightly smaller text */
-  border-radius: 6px;
   border: none;
   cursor: pointer;
   font-weight: 600;
