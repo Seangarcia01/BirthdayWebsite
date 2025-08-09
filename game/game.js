@@ -42,7 +42,7 @@ if (state && (Date.now() - state.timestamp) < TIMEOUT_MIN) {
 
 // START NEW GAME
 function startNewGame() {
-  const imgs = Array.from({ length: IMAGE_COUNT }, (_, i) => `game_images/${i+1}.jpg`);
+  const imgs = Array.from({ length: IMAGE_COUNT }, (_, i) => game_images/${i+1}.jpg);
   const pairs = imgs.concat(imgs);
   const shuffled = shuffle(pairs);
   initBoard(shuffled);
@@ -61,12 +61,12 @@ function initBoard(shuffled) {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.src = src;
-    card.innerHTML = `
+    card.innerHTML = 
       <div class="card-inner">
         <div class="card-front"></div>
         <div class="card-back" style="background-image: url('${src}')"></div>
       </div>
-    `;
+    ;
     card.addEventListener('click', onCardClick);
     gridEl.appendChild(card);
   });
@@ -193,7 +193,7 @@ if (backBtn) backBtn.addEventListener('click', () => history.back());
 function showFeedback(type) {
   if (!feedbackEl) return;
   feedbackEl.textContent = (type === 'correct') ? '🎉 Nice match!' : '❌ Try again!';
-  feedbackEl.className = `feedback show ${type}`;
+  feedbackEl.className = feedback show ${type};
 
   // play sound
   if (type === 'correct') {
@@ -280,8 +280,8 @@ function fitGridToViewport() {
   }
 
   // apply to grid
-  gridEl.style.gridTemplateColumns = `repeat(${best.cols}, ${best.size}px)`;
-  gridEl.style.gridAutoRows = `${best.size}px`;
+  gridEl.style.gridTemplateColumns = repeat(${best.cols}, ${best.size}px);
+  gridEl.style.gridAutoRows = ${best.size}px;
   gridEl.style.justifyContent = 'center';
   gridEl.style.alignContent = 'center';
 }
