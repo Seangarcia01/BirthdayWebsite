@@ -102,7 +102,7 @@ h1 {
   text-align: center;
   font-weight: bold;
   font-size: 1rem;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 
 /* Controls (back / continue) */
@@ -111,21 +111,22 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 
 .control-btn, .next-btn {
-  padding: 0.4rem 0.8rem; /* smaller vertical space */
-  font-size: 0.9rem;       /* slightly smaller text */
+  padding: 0.55rem 1.1rem; /* slightly bigger than before */
+  font-size: 1rem;         /* bump up size */
+  border-radius: 8px;
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   color: #000;
   background: rgba(51,255,204,0.85);
 }
 
 .next-btn { 
-  background: linear-gradient(135deg,#33ffcc,#00ff99);
+  background: linear-gradient(135deg,#33ffcc,#00ff99); 
 }
 
 .control-btn:hover, 
