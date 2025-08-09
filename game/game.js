@@ -1,22 +1,23 @@
-// Configuration
+// ================== CONFIGURATION ==================
 const IMAGE_COUNT = 20;                    // number of unique images
 const PAIRS = IMAGE_COUNT;                 // total pairs
 const TIMEOUT_MIN = 15 * 60 * 1000;        // 15 minutes
 
-// UI elements
+// ================== UI ELEMENTS ==================
 const gridEl   = document.getElementById('grid');
 const msgEl    = document.getElementById('message');
 const nextBtn  = document.getElementById('next-btn');
 const backBtn  = document.getElementById('back-btn');
 
+// ================== STATE VARIABLES ==================
 let firstCard   = null;
 let secondCard  = null;
 let lockBoard   = false;
 let matchedCount = 0;
 
-// Preload audio
+// ================== SOUNDS ==================
 const correctSound = new Audio('sounds/correct.mp3');
-correctSound.volume = 1.0; // max volume (range: 0.0 to 1.0)
+correctSound.volume = 1.0;
 
 const wrongSound = new Audio('sounds/wrong.mp3');
 wrongSound.volume = 1.0;
@@ -24,7 +25,7 @@ wrongSound.volume = 1.0;
 correctSound.load();
 wrongSound.load();
 
-// Load or initialize state
+// ================== LOAD GAME STATE ==================
 let state = JSON.parse(localStorage.getItem('matchState') || 'null');
 if (state && (Date.now() - state.timestamp) < TIMEOUT_MIN) {
   initBoard(state.shuffled);
@@ -35,7 +36,7 @@ if (state && (Date.now() - state.timestamp) < TIMEOUT_MIN) {
   startNewGame();
 }
 
-// Start a fresh game
+// ================== GAME INITIALIZATION ==================
 function startNewGame() {
   const imgs = Array.from({ length: IMAGE_COUNT }, (_, i) => `game_images/${i+1}.jpg`);
   let pairs = imgs.concat(imgs);
@@ -49,7 +50,6 @@ function startNewGame() {
   }));
 }
 
-// Build the card grid
 function initBoard(shuffled) {
   gridEl.innerHTML = '';
   shuffled.forEach(src => {
@@ -67,7 +67,7 @@ function initBoard(shuffled) {
   });
 }
 
-// Handle card click
+// ================== GAME LOGIC ==================
 function onCardClick() {
   if (lockBoard) return;
   if (this.classList.contains('flipped')) return;
@@ -81,19 +81,18 @@ function onCardClick() {
   checkForMatch();
 }
 
-// Check if two selected cards match
 function checkForMatch() {
   const isMatch = firstCard.dataset.src === secondCard.dataset.src;
   if (isMatch) {
     disableCards();
     showMessage('Correct! 🎉');
-    showFeedback('correct'); // ← ADD THIS
+    showFeedback('correct');
     matchedCount++;
     saveMatch(firstCard.dataset.src);
     if (matchedCount === PAIRS) showNext();
   } else {
     showMessage('Try again…', true);
-    showFeedback('wrong'); // ← ADD THIS
+    showFeedback('wrong');
     lockBoard = true;
     setTimeout(() => {
       firstCard.classList.remove('flipped');
@@ -106,35 +105,32 @@ function checkForMatch() {
   }
 }
 
-// Prevent matched cards from being clicked again
 function disableCards() {
   firstCard.removeEventListener('click', onCardClick);
   secondCard.removeEventListener('click', onCardClick);
   firstCard = secondCard = null;
 }
 
-// Show feedback message (and optional vibration)
+// ================== UI FEEDBACK ==================
 function showMessage(text, vibrate = false) {
   msgEl.textContent = text;
   if (vibrate && navigator.vibrate) navigator.vibrate(200);
 }
 
-// Clear the feedback message
 function clearMessage() {
   msgEl.textContent = '';
 }
 
-// Reveal the Continue button when done
 function showNext() {
   nextBtn.classList.remove('hidden');
   showMessage('All matched! Click Continue 🎉');
 
-  // 🎉 Play celebration sound
+  // Play celebration sound
   const celebrationSound = document.getElementById('celebration-sound');
   celebrationSound.currentTime = 0;
   celebrationSound.play();
 
-  // 🎊 Trigger confetti
+  // Launch confetti
   launchConfetti();
 
   nextBtn.addEventListener('click', () => {
@@ -142,7 +138,45 @@ function showNext() {
   }, { once: true });
 }
 
-// Save a matched card to localStorage
+function showFeedback(type) {
+  const feedback = document.getElementById('feedback');
+  if (!feedback) return;
+
+  feedback.textContent = type === 'correct' ? 'Correct!' : 'Wrong!';
+  feedback.className = 'feedback show ' + type;
+
+  if (type === 'correct') {
+    correctSound.currentTime = 0;
+    correctSound.play();
+  } else if (type === 'wrong') {
+    wrongSound.currentTime = 0;
+    wrongSound.play();
+  }
+
+  if (navigator.vibrate) {
+    navigator.vibrate(type === 'correct' ? 100 : [100, 50, 100]);
+  }
+
+  setTimeout(() => {
+    feedback.classList.remove('show', type);
+    feedback.textContent = '';
+  }, 1200);
+}
+
+// ================== CONFETTI ==================
+function launchConfetti() {
+  confetti({
+    particleCount: 120,
+    spread: 90,
+    origin: { y: 0.6 }
+  });
+  setTimeout(() => {
+    confetti({ particleCount: 80, spread: 70, origin: { x: 0.2, y: 0.6 } });
+    confetti({ particleCount: 80, spread: 70, origin: { x: 0.8, y: 0.6 } });
+  }, 500);
+}
+
+// ================== SAVE / RESTORE ==================
 function saveMatch(src) {
   let st = JSON.parse(localStorage.getItem('matchState'));
   st.matched.push(src);
@@ -150,7 +184,6 @@ function saveMatch(src) {
   localStorage.setItem('matchState', JSON.stringify(st));
 }
 
-// Restore previously matched cards on reload
 function restoreMatches(matched) {
   document.querySelectorAll('.card').forEach(card => {
     if (matched.includes(card.dataset.src)) {
@@ -160,7 +193,7 @@ function restoreMatches(matched) {
   });
 }
 
-// Fisher–Yates shuffle
+// ================== UTILS ==================
 function shuffle(array) {
   let a = array.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -170,59 +203,5 @@ function shuffle(array) {
   return a;
 }
 
-// Back button handler
+// ================== BUTTON HANDLERS ==================
 backBtn.addEventListener('click', () => history.back());
-
-function showFeedback(type) {
-  const feedback = document.getElementById('feedback');
-  if (!feedback) return;
-
-  // Set the message text
-  feedback.textContent = type === 'correct' ? 'Correct!' : 'Wrong!';
-
-  // Set the class for styling
-  feedback.className = 'feedback show ' + type;
-
-  // Play preloaded sound
-  if (type === 'correct') {
-    correctSound.currentTime = 0;
-    correctSound.play();
-  } else if (type === 'wrong') {
-    wrongSound.currentTime = 0;
-    wrongSound.play();
-  }
-
-  // Vibration feedback (optional)
-  if (navigator.vibrate) {
-    navigator.vibrate(type === 'correct' ? 100 : [100, 50, 100]);
-  }
-
-  // Hide feedback after 1.2 seconds
-  setTimeout(() => {
-    feedback.classList.remove('show', type);
-    feedback.textContent = ''; // clear message
-  }, 1200);
-}
-
-function launchConfetti() {
-  // Burst in the center
-  confetti({
-    particleCount: 120,
-    spread: 90,
-    origin: { y: 0.6 }
-  });
-
-  // Extra bursts for a more fun effect
-  setTimeout(() => {
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { x: 0.2, y: 0.6 }
-    });
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { x: 0.8, y: 0.6 }
-    });
-  }, 500);
-}
