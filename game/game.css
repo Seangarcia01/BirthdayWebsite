@@ -1,29 +1,43 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* === Base styles for desktop first === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#1a001a,#330033,#4d004d);
+  background: linear-gradient(135deg, #1a001a, #330033, #4d004d);
   color: #fff;
   display: flex;
   justify-content: center;
   padding: 2rem;
 }
+
 .game-container {
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
   text-align: center;
 }
-h1 { margin-bottom: 1rem; }
+
+h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(80px,1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* bigger cards */
+  gap: 1rem;
 }
+
 .card {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* square */
+  padding-top: 100%;
   perspective: 600px;
 }
+
 .card-inner {
   position: absolute;
   inset: 0;
@@ -31,30 +45,40 @@ h1 { margin-bottom: 1rem; }
   transform-style: preserve-3d;
   cursor: pointer;
 }
-.card.flipped .card-inner { transform: rotateY(180deg); }
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
 .card-front,
 .card-back {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   backface-visibility: hidden;
-  border-radius: 8px;
+  border-radius: 10px;
 }
+
 .card-front {
   background: #222;
 }
+
 .card-back {
   transform: rotateY(180deg);
   background-size: cover;
   background-position: center;
 }
+
 .message {
   margin-top: 1rem;
   height: 1.5em;
   font-weight: bold;
+  font-size: 1.2rem;
 }
+
 .next-btn {
   margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
   border: none;
   border-radius: 6px;
   background: #33ffcc;
@@ -62,8 +86,8 @@ h1 { margin-bottom: 1rem; }
   cursor: pointer;
 }
 
-.hidden { 
-    display: none; 
+.hidden {
+  display: none;
 }
 
 .controls {
@@ -72,23 +96,23 @@ h1 { margin-bottom: 1rem; }
   justify-content: center;
   gap: 1rem;
 }
+
 .control-btn {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
   border: none;
   border-radius: 6px;
-  background: rgba(51,255,204,0.8);
+  background: rgba(51, 255, 204, 0.8);
   color: #000;
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .control-btn:hover {
-  background: rgba(51,255,204,1);
-}
-.hidden {
-  display: none;
+  background: rgba(51, 255, 204, 1);
 }
 
+/* === Feedback notification === */
 .feedback {
   position: fixed;
   top: 20%;
@@ -96,15 +120,15 @@ h1 { margin-bottom: 1rem; }
   transform: translateX(-50%);
   background-color: #222;
   color: #fff;
-  padding: 20px 30px;
+  padding: 25px 35px;
   border-radius: 12px;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   scale: 0.8;
 }
 
@@ -122,29 +146,7 @@ h1 { margin-bottom: 1rem; }
   background-color: #e53935;
 }
 
-@keyframes feedbackFade {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-  10% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
-}
-
-@keyframes feedbackShake {
-  10%, 90% { transform: translate(-50%, -50%) translateX(-2px); }
-  20%, 80% { transform: translate(-50%, -50%) translateX(4px); }
-  30%, 70% { transform: translate(-50%, -50%) translateX(-4px); }
-  40%, 60% { transform: translate(-50%, -50%) translateX(4px); }
-  50%      { transform: translate(-50%, -50%) translateX(-4px); }
-}
-
-@keyframes popUp {
-  from { transform: translateX(-50%) scale(0.8); opacity: 0; }
-  to { transform: translateX(-50%) scale(1); opacity: 1; }
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
+/* Music frame */
 #music-frame {
   position: fixed;
   bottom: 10px;
@@ -153,4 +155,46 @@ h1 { margin-bottom: 1rem; }
   height: 60px;
   border: none;
   z-index: 9999;
+}
+
+/* === Responsive adjustments for smaller devices === */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  .message {
+    font-size: 1rem;
+  }
+  .next-btn,
+  .control-btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+  }
+  .message {
+    font-size: 0.9rem;
+  }
+  .feedback {
+    font-size: 20px;
+    padding: 15px 20px;
+  }
 }
