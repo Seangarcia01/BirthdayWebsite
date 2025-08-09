@@ -114,16 +114,6 @@ body.fade-in {
   pointer-events: none;
 }
 
-#hidden-image {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 150px;
-  opacity: 0;
-  transition: opacity 1s ease;
-  z-index: 999;
-}
-
 /* Button layout */
 #button-container {
   display: flex;
@@ -300,10 +290,6 @@ body.fade-in {
     height: 120px !important;
   }
 
-  #hidden-image {
-    width: 100px;
-  }
-
   #main-center {
     padding: 1.5rem 1rem;
     text-align: center;
@@ -365,10 +351,6 @@ body.fade-in {
   .floating-image {
     width: 80px !important;
     height: 80px !important;
-  }
-
-  #hidden-image {
-    width: 80px;
   }
 }
 

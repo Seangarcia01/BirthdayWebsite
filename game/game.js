@@ -128,6 +128,15 @@ function clearMessage() {
 function showNext() {
   nextBtn.classList.remove('hidden');
   showMessage('All matched! Click Continue 🎉');
+
+  // 🎉 Play celebration sound
+  const celebrationSound = document.getElementById('celebration-sound');
+  celebrationSound.currentTime = 0;
+  celebrationSound.play();
+
+  // 🎊 Trigger confetti
+  launchConfetti();
+
   nextBtn.addEventListener('click', () => {
     window.location.href = 'final_message.html';
   }, { once: true });
@@ -193,4 +202,27 @@ function showFeedback(type) {
     feedback.classList.remove('show', type);
     feedback.textContent = ''; // clear message
   }, 1200);
+}
+
+function launchConfetti() {
+  // Burst in the center
+  confetti({
+    particleCount: 120,
+    spread: 90,
+    origin: { y: 0.6 }
+  });
+
+  // Extra bursts for a more fun effect
+  setTimeout(() => {
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { x: 0.2, y: 0.6 }
+    });
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { x: 0.8, y: 0.6 }
+    });
+  }, 500);
 }
