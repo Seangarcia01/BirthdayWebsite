@@ -150,8 +150,7 @@ function onCardClick() {
 }
 
 function checkForMatch() {
-  if (!firstCard || !secondCard) return;
-
+  if (!firstCard || !secondCard) return; // safety check
   const isMatch = firstCard.dataset.src === secondCard.dataset.src;
 
   if (isMatch) {
