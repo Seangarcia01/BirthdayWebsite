@@ -4,7 +4,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
-  animation: bgPulse 20s ease infinite;
+  animation: bgPulse 40s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ body {
   overflow: hidden;
 }
 
-/* Heart animations container */
+/* Floating hearts background */
 .hearts-container {
   position: fixed;
   top: 0;
@@ -24,37 +24,48 @@ body {
   z-index: 1;
 }
 
-/* Larger glowing message box */
+/* Glowing, soft-edged message box */
 .message-box {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 20px;
   padding: 3rem 4rem;
   max-width: 800px;
-  text-align: center; /* center headings */
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  box-shadow: 
+    0 0 40px rgba(255, 255, 255, 0.25),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   z-index: 10;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Headline */
+.message-box:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 50px rgba(255, 255, 255, 0.35),
+    inset 0 0 25px rgba(255, 255, 255, 0.07);
+}
+
+/* Title */
 .message-box h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
   color: #ffccff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
-/* Paragraph styling */
+/* Paragraph */
 .message-box p {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  text-align: justify; /* clean justified alignment */
+  font-size: 1.5rem;
+  line-height: 1.9;
+  text-align: justify;
   text-justify: inter-word;
   color: #f5e6ff;
   margin: 0;
 }
 
-/* Music frame */
+/* Music player */
 #music-frame {
   position: fixed;
   bottom: 10px;
@@ -65,9 +76,44 @@ body {
   z-index: 9999;
 }
 
-/* Background animation */
+/* Slower gradient pulse */
 @keyframes bgPulse {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* ---------------------- Responsive Styles ---------------------- */
+
+/* Tablet adjustments */
+@media (max-width: 1023px) {
+  .message-box {
+    padding: 2.5rem 3rem;
+    max-width: 90%;
+  }
+  .message-box h1 {
+    font-size: 2.5rem;
+  }
+  .message-box p {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+  .message-box {
+    padding: 1.5rem 1.5rem;
+    border-radius: 14px;
+    max-width: 100%;
+  }
+  .message-box h1 {
+    font-size: 2rem;
+  }
+  .message-box p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
 }
