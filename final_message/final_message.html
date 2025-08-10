@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday!</title>
-  <link rel="stylesheet" href="final_message.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Message</title>
+  <link rel="stylesheet" href="final_message.css">
 </head>
 <body>
+  <div class="hearts-container"></div>
+
   <div class="message-box">
-    <h1>🎉 Happy Birthday! 🎉</h1>
+    <h1>Happy Birthday! 🎉</h1>
     <p>
-      On your special day, I just want you to know how much you mean to me.
-      You bring so much light, joy, and warmth into my life. May this year
-      be full of amazing adventures, endless laughter, and dreams coming true.
-      You deserve nothing but the best ❤️
+      Wishing you a day filled with love, laughter, and endless joy.
+      This is your special day — enjoy every moment! 💖
     </p>
-    <button class="play-again-btn" onclick="window.location.href='index.html'">Play Again</button>
   </div>
 
+  <!-- Music iframe (same as all pages) -->
+  <iframe src="../music.html" id="music-frame"></iframe>
+
   <script src="final_message.js"></script>
+
+  <script>
+    // Tell the iframe to start music
+    window.addEventListener('DOMContentLoaded', () => {
+      const musicFrame = document.getElementById('music-frame');
+      musicFrame.onload = () => {
+        musicFrame.contentWindow.postMessage('start-music', '*');
+      };
+    });
+  </script>
 </body>
 </html>
