@@ -21,14 +21,15 @@ html, body {
 }
 
 .message-box {
-  position: relative;
+  background: rgba(255, 255, 255, 0.08); /* subtle transparent white */
+  backdrop-filter: blur(12px); /* glassmorphism */
   padding: 2rem;
   border-radius: 20px;
   max-width: 500px;
   text-align: center;
   color: #fff;
-  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-  overflow: hidden;
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.35);
+  z-index: 2; /* above hearts */
 }
 
 .message-box h1 {
@@ -41,17 +42,6 @@ html, body {
   line-height: 1.5;
 }
 
-/* Add a blurred background layer inside */
-.message-box::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: inherit; /* copies the gradient */
-  filter: blur(12px);
-  opacity: 0.6;
-  z-index: -1;
-}
-
 .hearts-container {
   position: fixed;
   top: 0; left: 0;
@@ -61,7 +51,6 @@ html, body {
   z-index: 1;
 }
 
-/* Individual hearts that will be injected into .hearts-container */
 .hearts-container .heart {
   position: absolute;
   left: 50%;
@@ -74,11 +63,9 @@ html, body {
   animation: heartFloat 4.5s cubic-bezier(.2,.9,.2,1) forwards;
 }
 
-/* small variety class modifiers (set via JS with inline styles) */
 .hearts-container .heart.small { font-size: 1.1rem; }
 .hearts-container .heart.large { font-size: 2.2rem; }
 
-/* heart float keyframes: upward, slight drift, fade */
 @keyframes heartFloat {
   0% {
     opacity: 1;
@@ -97,7 +84,6 @@ html, body {
   }
 }
 
-/* Music iframe styling (keeps same placement as other pages) */
 #music-frame {
   position: fixed;
   bottom: 10px;
@@ -108,7 +94,6 @@ html, body {
   z-index: 9999;
 }
 
-/* small responsiveness tweaks so the message box isn't too big on tiny screens */
 @media (max-width: 480px) {
   .message-box {
     padding: 1.25rem;
