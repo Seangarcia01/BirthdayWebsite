@@ -1,16 +1,23 @@
-// Spawn floating heart emojis
-function spawnHeart() {
-  const heart = document.createElement('div');
-  heart.className = 'heart';
-  heart.textContent = '❤️';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-  document.body.appendChild(heart);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday!</title>
+  <link rel="stylesheet" href="final_message.css" />
+</head>
+<body>
+  <div class="message-box">
+    <h1>🎉 Happy Birthday! 🎉</h1>
+    <p>
+      On your special day, I just want you to know how much you mean to me.
+      You bring so much light, joy, and warmth into my life. May this year
+      be full of amazing adventures, endless laughter, and dreams coming true.
+      You deserve nothing but the best ❤️
+    </p>
+    <button class="play-again-btn" onclick="window.location.href='index.html'">Play Again</button>
+  </div>
 
-  setTimeout(() => {
-    heart.remove();
-  }, 4000); // matches animation time
-}
-
-// Keep spawning hearts every 300ms
-setInterval(spawnHeart, 300);
+  <script src="final_message.js"></script>
+</body>
+</html>
