@@ -20,18 +20,22 @@ html, body {
   100% { background-position: 0% 50%; }
 }
 
-.message-box {
+..message-box {
   position: relative;
-  padding: 3rem;
+  padding: 2.5rem;
   border-radius: 20px;
   max-width: 600px;
-  text-align: justify;
+  text-align: center;
   color: #fff;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-  overflow: hidden;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  background: rgba(0, 0, 0, 0.55); /* fixes the “different background” strip issue */
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.25);
   z-index: 2;
+}
+
+.message-box::before {
+  content: none; /* remove the blurred background layer entirely */
 }
 
 .message-box h1 {
@@ -43,16 +47,6 @@ html, body {
 .message-box p {
   font-size: 1.4rem;
   line-height: 1.6;
-}
-
-.message-box::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: inherit;
-  filter: blur(12px);
-  opacity: 0.6;
-  z-index: -1;
 }
 
 .hearts-container {
