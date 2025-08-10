@@ -1,60 +1,99 @@
-body {
+html, body {
+  overscroll-behavior: none;
+  touch-action: none;
   margin: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
-  animation: bgPulse 20s ease infinite;
+  animation: bgPulse 40s ease infinite; /* slowed down */
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  color: #fff;
-  overflow: hidden;
+  justify-content: center;
 }
 
-/* Heart animations container */
+@keyframes bgPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.message-box {
+  position: relative;
+  padding: 3rem;
+  border-radius: 18px;
+  max-width: 600px;
+  text-align: justify;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 25px rgba(255, 0, 150, 0.4), 0 0 50px rgba(255, 0, 150, 0.15);
+  animation: fadeIn 1.5s ease;
+  z-index: 2;
+}
+
+.message-box h1 {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.message-box p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* Fade-in effect for the box */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .hearts-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
+  overflow: hidden;
   z-index: 1;
 }
 
-/* Larger glowing message box */
-.message-box {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 3rem 4rem;
-  max-width: 800px;
-  text-align: center; /* center headings */
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  z-index: 10;
+.hearts-container .heart {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  font-size: 1.6rem;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: heartFloat 5s cubic-bezier(.2,.9,.2,1) forwards;
 }
 
-/* Headline */
-.message-box h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #ffccff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+.hearts-container .heart.small { font-size: 1.2rem; }
+.hearts-container .heart.large { font-size: 2.2rem; }
+
+@keyframes heartFloat {
+  0% {
+    opacity: 1;
+    transform: translateX(var(--tx, 0)) translateY(0) scale(1);
+  }
+  25% {
+    transform: translateX(calc(var(--tx, 0) + var(--drift, 10px))) translateY(-20vh) scale(1.05);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateX(calc(var(--tx, 0) - var(--drift, 10px))) translateY(-60vh) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(var(--tx, 0) + var(--drift, 20px))) translateY(-110vh) scale(1.3);
+  }
 }
 
-/* Paragraph styling */
-.message-box p {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  text-align: justify; /* clean justified alignment */
-  text-justify: inter-word;
-  color: #f5e6ff;
-  margin: 0;
-}
-
-/* Music frame */
+/* Music iframe */
 #music-frame {
   position: fixed;
   bottom: 10px;
@@ -63,46 +102,46 @@ body {
   height: 60px;
   border: none;
   z-index: 9999;
+  opacity: 0.85;
 }
 
-/* Background animation */
-@keyframes bgPulse {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Floating particle effect */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 182, 193, 0.4);
+  animation: floatParticle 20s linear infinite;
 }
 
-/* ---------------------- Responsive Styles ---------------------- */
+@keyframes floatParticle {
+  from { transform: translateY(100vh) scale(0.5); opacity: 0; }
+  20% { opacity: 1; }
+  to { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
 
-/* Tablet adjustments */
-@media (max-width: 1023px) {
+/* Responsive tweaks */
+@media (max-width: 768px) {
   .message-box {
-    padding: 2.5rem 3rem;
-    max-width: 90%;
-  }
-  .message-box h1 {
-    font-size: 2.5rem;
-  }
-  .message-box p {
-    font-size: 1.4rem;
-  }
-}
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-  body {
-    padding: 1rem;
-  }
-  .message-box {
-    padding: 1.5rem 1.5rem;
-    border-radius: 14px;
-    max-width: 100%;
+    padding: 2rem;
+    max-width: 90vw;
   }
   .message-box h1 {
     font-size: 2rem;
   }
   .message-box p {
     font-size: 1.2rem;
-    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-box {
+    padding: 1.5rem;
+    border-radius: 14px;
+  }
+  .message-box h1 {
+    font-size: 1.6rem;
+  }
+  .message-box p {
+    font-size: 1rem;
   }
 }
