@@ -132,27 +132,30 @@ function checkForMatch() {
     saveMatch(src1);
 
     if (matchedCount === IMAGE_COUNT) {
-      // Wait for flip animations to finish
-      setTimeout(() => {
-        showNext();
+    // Wait for flip animations to finish
+    setTimeout(() => {
 
-        // Trigger celebration
-        try {
-          launchConfetti();
-        } catch (e) {
-          console.warn('Confetti launch failed:', e);
-        }
+      // Show "Continue" button only now
+      const nextBtn = document.getElementById('next-btn');
+      if (nextBtn) nextBtn.classList.remove('hidden');
 
-        try {
-          if (celebrationEl) {
-            celebrationEl.currentTime = 0;
-            celebrationEl.play().catch(() => {});
-          }
-        } catch (e) {
-          console.warn('Celebration sound failed:', e);
+      // Trigger celebration
+      try {
+        launchConfetti();
+      } catch (e) {
+        console.warn('Confetti launch failed:', e);
+      }
+
+      try {
+        if (celebrationEl) {
+          celebrationEl.currentTime = 0;
+          celebrationEl.play().catch(() => {});
         }
-      }, 900);
-    }
+      } catch (e) {
+        console.warn('Celebration sound failed:', e);
+      }
+    }, 900);
+  }
   } else {
     showMessage('Try again…', true);
     showFeedback('wrong');
