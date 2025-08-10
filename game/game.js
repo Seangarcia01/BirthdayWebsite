@@ -93,6 +93,7 @@ function onCardClick(e) {
 // CHECK MATCH
 function checkForMatch() {
   if (!firstCard || !secondCard) return;
+
   const isMatch = firstCard.dataset.src === secondCard.dataset.src;
 
   if (isMatch) {
@@ -101,9 +102,23 @@ function checkForMatch() {
     showMessage('Correct! 🎉');
     showFeedback('correct');
     saveMatch(firstCard.dataset.src);
+
     if (matchedCount === IMAGE_COUNT) {
-      // small delay for UI to settle
-      setTimeout(() => showNext(), 400);
+      // Wait for flip animations to finish
+      setTimeout(() => {
+        showNext();
+
+        // Safety trigger for celebration
+        try {
+          launchConfetti();
+          if (celebrationEl) {
+            celebrationEl.currentTime = 0;
+            celebrationEl.play().catch(() => {});
+          }
+        } catch (e) {
+          console.warn('Celebration effect failed:', e);
+        }
+      }, 900);
     }
   } else {
     showMessage('Try again…', true);
