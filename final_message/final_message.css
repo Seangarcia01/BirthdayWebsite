@@ -6,9 +6,13 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: 'Segoe UI', sans-serif;
+
+  /* Lock gradient to viewport */
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
+  background-attachment: fixed;
   animation: bgPulse 20s ease infinite;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,15 +25,18 @@ html, body {
 }
 
 .message-box {
-  background: rgba(255, 255, 255, 0.08); /* subtle transparent white */
-  backdrop-filter: blur(12px); /* glassmorphism */
+  position: relative;
   padding: 2rem;
   border-radius: 20px;
   max-width: 500px;
   text-align: center;
   color: #fff;
-  box-shadow: 0 0 25px rgba(255, 0, 255, 0.35);
-  z-index: 2; /* above hearts */
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+  overflow: hidden;
+
+  /* Smooth translucent background (instead of copying gradient) */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
 }
 
 .message-box h1 {
