@@ -20,7 +20,7 @@ html, body {
   100% { background-position: 0% 50%; }
 }
 
-..message-box {
+.message-box {
   position: relative;
   padding: 2.5rem;
   border-radius: 20px;
