@@ -24,14 +24,23 @@ html, body {
   position: relative;
   padding: 2.5rem;
   border-radius: 20px;
-  max-width: 600px;
+  max-width: 650px;
   text-align: center;
   color: #fff;
-  font-size: 1.3rem;
-  line-height: 1.6;
-  background: rgba(0, 0, 0, 0.55); /* fixes the “different background” strip issue */
-  box-shadow: 0 0 25px rgba(255, 0, 255, 0.25);
+  font-size: 1.4rem;
+  line-height: 1.7;
+  background: linear-gradient(135deg, rgba(13, 13, 13, 0.7), rgba(26, 0, 26, 0.7), rgba(51, 0, 51, 0.7), rgba(77, 0, 77, 0.7));
+  background-size: 400% 400%;
+  animation: bgPulseBox 60s ease infinite;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.25);
   z-index: 2;
+}
+
+/* Separate animation so it moves slower than the page */
+@keyframes bgPulseBox {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .message-box::before {
