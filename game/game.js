@@ -90,54 +90,34 @@ function onCardClick(e) {
   checkForMatch();
 }
 
+// CHECK MATCH
 function checkForMatch() {
-  const [firstCard, secondCard] = flippedCards;
-  const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+  if (!firstCard || !secondCard) return;
+  const isMatch = firstCard.dataset.src === secondCard.dataset.src;
 
   if (isMatch) {
-    firstCard.removeEventListener('click', onCardClick);
-    secondCard.removeEventListener('click', onCardClick);
-    matchedPairs++;
-
-    if (matchedPairs === totalPairs) {
-      endGameCelebration();
+    disableCards();
+    matchedCount++;
+    showMessage('Correct! 🎉');
+    showFeedback('correct');
+    saveMatch(firstCard.dataset.src);
+    if (matchedCount === IMAGE_COUNT) {
+      // small delay for UI to settle
+      setTimeout(() => showNext(), 400);
     }
   } else {
+    showMessage('Try again…', true);
+    showFeedback('wrong');
+    lockBoard = true;
     setTimeout(() => {
       firstCard.classList.remove('flipped');
       secondCard.classList.remove('flipped');
-    }, 1000);
+      firstCard = null;
+      secondCard = null;
+      lockBoard = false;
+      clearMessage();
+    }, 900);
   }
-  flippedCards = [];
-}
-
-function endGameCelebration() {
-  // Show Continue button
-  const nextBtn = document.getElementById('next-btn');
-  nextBtn.classList.remove('hidden');
-
-  // Celebration sound
-  const celebrationSound = document.getElementById('celebration-sound');
-  if (celebrationSound) {
-    celebrationSound.currentTime = 0;
-    celebrationSound.play().catch(() => {});
-  }
-
-  // Confetti
-  launchConfetti();
-
-  // Button click to go to secret message page
-  nextBtn.addEventListener('click', () => {
-    window.location.href = 'final_message.html';
-  }, { once: true });
-}
-
-function launchConfetti() {
-  confetti({
-    particleCount: 200,
-    spread: 80,
-    origin: { y: 0.6 }
-  });
 }
 
 // DISABLE matched cards
