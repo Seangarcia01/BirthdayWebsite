@@ -205,7 +205,7 @@ function showNext() {
   if (!nextAttached) {
     nextAttached = true;
     nextBtn.addEventListener('click', () => {
-      window.location.href = 'final_message/final_message.html';
+      window.location.href = '/final_message/final_message.html';
     }, { once: true });
   }
 }
