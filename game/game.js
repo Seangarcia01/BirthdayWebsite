@@ -106,31 +106,50 @@ function onCardClick(e) {
 
 // CHECK MATCH
 function checkForMatch() {
-  if (!firstCard || !secondCard) return;
+  // Guard: stop if either card is missing
+  if (!firstCard || !secondCard) {
+    console.warn('checkForMatch called without two cards selected.');
+    return;
+  }
 
-  const isMatch = firstCard.dataset.src === secondCard.dataset.src;
+  // Safely read dataset values
+  const src1 = firstCard?.dataset?.src;
+  const src2 = secondCard?.dataset?.src;
+
+  // Guard: stop if either dataset is missing
+  if (!src1 || !src2) {
+    console.warn('One or both cards are missing data-src.');
+    return;
+  }
+
+  const isMatch = src1 === src2;
 
   if (isMatch) {
     disableCards();
     matchedCount++;
     showMessage('Correct! 🎉');
     showFeedback('correct');
-    saveMatch(firstCard.dataset.src);
+    saveMatch(src1);
 
     if (matchedCount === IMAGE_COUNT) {
       // Wait for flip animations to finish
       setTimeout(() => {
         showNext();
 
-        // Safety trigger for celebration
+        // Trigger celebration
         try {
           launchConfetti();
+        } catch (e) {
+          console.warn('Confetti launch failed:', e);
+        }
+
+        try {
           if (celebrationEl) {
             celebrationEl.currentTime = 0;
             celebrationEl.play().catch(() => {});
           }
         } catch (e) {
-          console.warn('Celebration effect failed:', e);
+          console.warn('Celebration sound failed:', e);
         }
       }, 900);
     }
