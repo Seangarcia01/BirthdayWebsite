@@ -28,6 +28,20 @@ correctSound.load(); wrongSound.load();
 
 // load celebration audio element if provided in HTML
 const celebrationEl = document.getElementById('celebration-sound');
+let celebrationUnlocked = false;
+
+// Unlock function
+function unlockCelebrationSound() {
+  if (!celebrationUnlocked) {
+    celebrationEl.volume = 0;
+    celebrationEl.play().catch(()=>{}).then(() => {
+      celebrationEl.pause();
+      celebrationEl.currentTime = 0;
+      celebrationEl.volume = 1;
+      celebrationUnlocked = true;
+    });
+  }
+}
 
 // restore or start
 let state = JSON.parse(localStorage.getItem('matchState') || 'null');
