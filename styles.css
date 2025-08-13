@@ -407,9 +407,8 @@ body.fade-in {
   margin-top: 1em;
 }
 
-/* ===== Letter loader CSS - append to styles.css ===== */
+/* ===== Full-page Letter Loader CSS (replace previous loader styles) ===== */
 
-/* loader container */
 #page-loader {
   position: fixed;
   inset: 0;
@@ -418,124 +417,161 @@ body.fade-in {
   align-items: center;
   justify-content: center;
   pointer-events: all;
-  transition: opacity 450ms ease, visibility 450ms;
+  transition: opacity 600ms ease, visibility 600ms;
   visibility: visible;
   opacity: 1;
 }
 
-/* reuse your gradient for a seamless backdrop */
+/* backdrop blends with site gradient so it never flashes white */
 #page-loader .loader-backdrop {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
   animation: bgPulse 20s ease infinite;
+  filter: brightness(0.85);
 }
 
-/* envelope wrapper centered */
+/* envelope wrapper takes most of the viewport (responsive) */
 .envelope-wrap {
   position: relative;
   z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 220px;
-  height: 160px;
-  user-select: none;
+
+  width: min(86vw, 1100px);
+  height: min(68vh, 760px);
+  pointer-events: none;
 }
 
-/* envelope styling */
+/* envelope body (paper + flap) */
 .envelope {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,240,255,0.96));
-  box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 -2px 6px rgba(0,0,0,0.06);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fffefc 0%, #f7f3ff 100%);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 -3px 10px rgba(0,0,0,0.04);
   overflow: visible;
-  transform: translateY(0);
+  transform-origin: center;
 }
 
-/* top flap */
+/* decorative subtle edge to make it feel like paper (not dark) */
+.envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12) inset;
+}
+
+/* flap — starts closed on top of envelope */
 .envelope .flap {
   position: absolute;
   top: -2%;
   left: 0;
   width: 100%;
-  height: 60%;
-  background: linear-gradient(135deg, #f3f0ff 0%, #ffdfe6 100%);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  height: 58%;
+  background: linear-gradient(135deg,#fff6fb 0%,#ffeef6 100%);
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
   transform-origin: top center;
   transform: rotateX(0deg);
-  box-shadow: 0 10px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
   z-index: 5;
 }
 
-/* paper inside envelope — initially down */
+/* the inner paper that rises. placed under the flap visually */
 .envelope .paper {
   position: absolute;
   left: 6%;
   right: 6%;
   bottom: 6%;
   top: 36%;
-  background: linear-gradient(180deg, #fff 0%, #fffefc 100%);
-  border-radius: 6px;
-  transform: translateY(28%);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  background: linear-gradient(180deg, #fff 0%, #fffcfe 100%);
+  border-radius: 10px;
+  transform: translateY(36%); /* start down inside the envelope */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* wax seal */
+/* little letter lines for visual interest */
+.letter-content {
+  width: 86%;
+  height: 72%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  opacity: 0.95;
+}
+.letter-content .line {
+  height: 8px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,0,0,0.04));
+  width: 100%;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+}
+.letter-content .line.short { width: 40%; height: 12px; }
+.letter-content .line.mid { width: 70%; }
+
+/* wax seal (hidden at first) */
 .envelope .wax {
-  width: 56px;
-  height: 56px;
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.6);
+  width: 84px;
+  height: 84px;
   border-radius: 999px;
   background: linear-gradient(180deg,#ff7bb1,#ff3b91);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4), inset 0 -4px 8px rgba(255,255,255,0.15);
-  transform: scale(0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 -6px 10px rgba(255,255,255,0.12);
   opacity: 0;
+  z-index: 4;
 }
 
-/* heart in wax */
-.wax-heart {
-  transform: scale(0.85);
-  font-size: 1.1rem;
-  filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));
-}
+/* heart inside wax */
+.wax-heart { font-size: 28px; transform: scale(0.9); }
 
-/* trigger classes added by loader.js */
+/* ===== animation states triggered by .start ===== */
 #page-loader.start .envelope .flap {
-  animation: flapOpen 700ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation: flapOpen 1200ms cubic-bezier(.2,.9,.2,1) forwards;
 }
 #page-loader.start .envelope .paper {
-  animation: paperUp 900ms cubic-bezier(.2,.9,.2,1) 500ms forwards;
+  animation: paperUp 1600ms cubic-bezier(.2,.9,.2,1) 650ms forwards;
 }
 #page-loader.start .envelope .wax {
-  animation: waxPop 650ms ease 1150ms forwards;
+  animation: waxPop 1000ms ease 1750ms forwards;
 }
 
+/* slower, smoother keyframes */
 @keyframes flapOpen {
   0%   { transform: rotateX(0deg); }
-  60%  { transform: rotateX(-120deg); }
+  50%  { transform: rotateX(-80deg); }
+  85%  { transform: rotateX(-140deg); }
   100% { transform: rotateX(-160deg); }
 }
+
 @keyframes paperUp {
-  0%   { transform: translateY(28%); }
-  60%  { transform: translateY(-18%); }
-  100% { transform: translateY(-28%); }
+  0%   { transform: translateY(36%); }
+  40%  { transform: translateY(6%); }
+  80%  { transform: translateY(-8%); }
+  100% { transform: translateY(-14%); } /* fully pulled out */
 }
+
 @keyframes waxPop {
-  0%   { transform: scale(0.6); opacity: 0; filter: blur(2px); }
-  40%  { transform: scale(1.08); opacity: 1; filter: blur(0); }
-  70%  { transform: scale(0.95); }
-  100% { transform: scale(1); }
+  0%   { transform: translateX(-50%) scale(0.6); opacity: 0; filter: blur(2px); }
+  45%  { transform: translateX(-50%) scale(1.06); opacity: 1; filter: blur(0); }
+  70%  { transform: translateX(-50%) scale(0.94); }
+  100% { transform: translateX(-50%) scale(1); }
 }
 
 /* fade/hide loader */
@@ -545,14 +581,7 @@ body.fade-in {
   pointer-events: none;
 }
 
-/* keep consistent bg pulse keyframes (if not already in your styles) */
-@keyframes bgPulse {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* reduced-motion respect */
+/* preserve reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   #page-loader .loader-backdrop { animation: none; }
   #page-loader.start .envelope .flap,
@@ -564,8 +593,17 @@ body.fade-in {
   }
 }
 
-/* small screens */
-@media (max-width: 420px) {
-  .envelope-wrap { width: 180px; height: 130px; }
-  .envelope .wax { width: 48px; height: 48px; }
+/* smaller screens: tighten sizes */
+@media (max-width: 520px) {
+  .envelope-wrap { width: 92vw; height: 62vh; }
+  .envelope .wax { width: 64px; height: 64px; bottom: 20%; }
+  .wax-heart { font-size: 20px; }
+  .letter-content .line { height: 6px; }
+}
+
+/* keep consistent bgPulse keyframes (copy if not present elsewhere) */
+@keyframes bgPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

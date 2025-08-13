@@ -1,43 +1,46 @@
-// loader.js — show letter loader, animate, then hide
+// loader.js — full-page envelope loader (slower, covers viewport)
 (function () {
-  const LOADER_MIN_MS = 800;    // minimum time the loader will show
-  const FORCE_HIDE_MS = 6000;   // safety fallback to hide
+  const LOADER_MIN_MS = 1000;   // minimum time loader is visible
+  const FORCE_HIDE_MS = 8000;   // safety fallback
+  const ANIM_CLASS_DELAY = 80;  // small delay before starting animations
   const loader = document.getElementById('page-loader');
   if (!loader) return;
 
-  // start animation shortly after insertion (gives CSS time to settle)
+  // start the visual animation shortly after insertion
   requestAnimationFrame(() => {
-    setTimeout(() => loader.classList.add('start'), 50);
+    setTimeout(() => loader.classList.add('start'), ANIM_CLASS_DELAY);
   });
 
-  const start = performance.now();
+  const startedAt = performance.now();
 
   function hideLoader() {
-    const elapsed = performance.now() - start;
+    const elapsed = performance.now() - startedAt;
     const wait = Math.max(0, LOADER_MIN_MS - elapsed);
     setTimeout(() => {
+      // fade out
       loader.classList.add('faded');
+      // remove from DOM after fade
       setTimeout(() => {
-        // remove loader node after fade (clean up)
         if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-        // reveal page content (your pages use .fade-in; we add it here)
+        // reveal page content: many pages expect body.fade-in to show
         document.body.classList.add('fade-in');
-      }, 500);
+      }, 650);
     }, wait);
   }
 
-  // hide once full page loaded
+  // Hide when full page finishes loading
   window.addEventListener('load', hideLoader, { once: true });
 
-  // fallback: hide after FORCE_HIDE_MS
+  // fallback if load doesn't fire (rare)
   setTimeout(() => {
-    if (document.getElementById('page-loader')) hideLoader();
+    if (document.body.contains(loader)) hideLoader();
   }, FORCE_HIDE_MS);
 
-  // optional: user gesture to unlock audio etc.
+  // optional: user gesture to unlock audio, but do not force it here
   function onUserGesture() {
     window.removeEventListener('pointerdown', onUserGesture);
     window.removeEventListener('keydown', onUserGesture);
+    // nothing else; developer may use this to trigger audio unlock if needed
   }
   window.addEventListener('pointerdown', onUserGesture, { once: true });
   window.addEventListener('keydown', onUserGesture, { once: true });

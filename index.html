@@ -12,14 +12,25 @@
     });
   </script>
     <body>
-    <!-- ===== Letter loader (keep only on home page) ===== -->
+    <!-- ===== Full-page Letter Loader (home page only) ===== -->
     <div id="page-loader" aria-hidden="true">
       <div class="loader-backdrop" id="loader-backdrop"></div>
 
       <div class="envelope-wrap" role="img" aria-label="Opening letter animation">
         <div class="envelope">
           <div class="flap"></div>
+
+          <!-- paper that raises out of the envelope -->
           <div class="paper">
+            <div class="letter-content">
+              <!-- small visual lines to imply a letter (optional) -->
+              <div class="line short"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line mid"></div>
+            </div>
+
+            <!-- wax seal (appears after paper rises) -->
             <div class="wax">
               <span class="wax-heart">💜</span>
             </div>
