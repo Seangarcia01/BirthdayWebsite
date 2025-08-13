@@ -11,7 +11,24 @@
       document.body.classList.add('fade-in');
     });
   </script>
-  <body>
+    <body>
+    <!-- ===== Letter loader (keep only on home page) ===== -->
+    <div id="page-loader" aria-hidden="true">
+      <div class="loader-backdrop" id="loader-backdrop"></div>
+
+      <div class="envelope-wrap" role="img" aria-label="Opening letter animation">
+        <div class="envelope">
+          <div class="flap"></div>
+          <div class="paper">
+            <div class="wax">
+              <span class="wax-heart">💜</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ===== end loader ===== -->
+    
     <div id="parallax-wrapper">
       
       <!-- ✅ Begin Zoom Wrapper -->
@@ -36,6 +53,7 @@
     </div>
 
     <iframe src="music.html" id="music-frame"></iframe>
+    <script src="loader.js" defer></script>
     <script src="script.js" defer></script>
   </body>
 </html>
