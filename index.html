@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday 💜</title>
   <link rel="stylesheet" href="styles.css" />
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('fade-in');
-    });
-  </script>
 </head>
 <body>
   <!-- Letter Loader -->
@@ -24,7 +19,7 @@
   </div>
 
   <!-- Page Content -->
-  <div class="page-content">
+  <div class="page-content" style="opacity: 0;">
     <div id="parallax-wrapper">
       
       <!-- Zoom Wrapper -->
@@ -52,5 +47,15 @@
   <iframe src="music.html" id="music-frame"></iframe>
   
   <script src="script.js" defer></script>
+  <script>
+    // Loader control (independent from script.js)
+    window.addEventListener('load', () => {
+      document.querySelector('.letter-loader').classList.add('hide');
+      setTimeout(() => {
+        document.querySelector('.letter-loader').style.display = 'none';
+        document.querySelector('.page-content').style.opacity = '1';
+      }, 600); // match animation timing
+    });
+  </script>
 </body>
 </html>
