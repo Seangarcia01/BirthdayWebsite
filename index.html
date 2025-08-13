@@ -1,56 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy Birthday 💜</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head> 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 💜</title>
+  <link rel="stylesheet" href="styles.css" />
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('fade-in');
     });
   </script>
-    <body>
-    <!-- ===== Full-page Letter Loader (home page only) ===== -->
-    <div id="page-loader" aria-hidden="true">
-      <div class="loader-backdrop" id="loader-backdrop"></div>
-
-      <div class="envelope-wrap" role="img" aria-label="Opening letter animation">
-        <div class="envelope">
-          <div class="flap"></div>
-
-          <!-- paper that raises out of the envelope -->
-          <div class="paper">
-            <div class="letter-content">
-              <!-- small visual lines to imply a letter (optional) -->
-              <div class="line short"></div>
-              <div class="line"></div>
-              <div class="line"></div>
-              <div class="line mid"></div>
-            </div>
-
-            <!-- wax seal (appears after paper rises) -->
-            <div class="wax">
-              <span class="wax-heart">💜</span>
-            </div>
-          </div>
-        </div>
+</head>
+<body>
+  <!-- Letter Loader -->
+  <div class="letter-loader">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="body"></div>
+      <div class="seal">
+        <div class="heart"></div>
       </div>
     </div>
-    <!-- ===== end loader ===== -->
-    
+  </div>
+
+  <!-- Page Content -->
+  <div class="page-content">
     <div id="parallax-wrapper">
       
-      <!-- ✅ Begin Zoom Wrapper -->
+      <!-- Zoom Wrapper -->
       <div id="zoom-wrapper">
         <div id="decorations-container"></div>
         <div id="image-container"></div>
         <div id="message-container"></div>
       </div>
-      <!-- ✅ End Zoom Wrapper -->a
 
-          <!-- Centered container for typing messages -->
+      <!-- Typing Container -->
       <div id="main-center">
         <div id="typing-container">
           <span id="typing-text"></span><span class="heart">💜</span>
@@ -62,9 +46,11 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <iframe src="music.html" id="music-frame"></iframe>
-    <script src="loader.js" defer></script>
-    <script src="script.js" defer></script>
-  </body>
+  <!-- Music -->
+  <iframe src="music.html" id="music-frame"></iframe>
+  
+  <script src="script.js" defer></script>
+</body>
 </html>
