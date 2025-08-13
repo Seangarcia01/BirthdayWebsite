@@ -1,14 +1,20 @@
 const messages = [
   "I love you",
+  "I love you so much",
   "Forever",
   "My heart",
-  "My joy",
+  "Happy Birthday",
+  "Happy Birthday",
   "You're my person",
   "You + Me",
   "Happy Birthday",
   "Beautiful soul",
-  "Together always",
-  "My everything"
+  "Mahal Kita",
+  "Ms. Sungit",
+  "Always here for you",
+  "Aking sinta",
+  "My comfort",
+  "Love of my life",
 ];
 
 const container = document.getElementById('message-container');
