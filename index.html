@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday 💜</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <!-- Letter Loader -->
-  <div class="letter-loader">
-    <div class="envelope">
-      <div class="flap"></div>
-      <div class="body"></div>
-      <div class="seal">
-        <div class="heart"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page Content -->
-  <div class="page-content" style="opacity: 0;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday 💜</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head> 
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
+  </script>
+  <body>
     <div id="parallax-wrapper">
       
-      <!-- Zoom Wrapper -->
+      <!-- ✅ Begin Zoom Wrapper -->
       <div id="zoom-wrapper">
         <div id="decorations-container"></div>
         <div id="image-container"></div>
         <div id="message-container"></div>
       </div>
+      <!-- ✅ End Zoom Wrapper -->
 
-      <!-- Typing Container -->
+          <!-- Centered container for typing messages -->
       <div id="main-center">
         <div id="typing-container">
           <span id="typing-text"></span><span class="heart">💜</span>
@@ -41,21 +34,8 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Music -->
-  <iframe src="music.html" id="music-frame"></iframe>
-  
-  <script src="script.js" defer></script>
-  <script>
-    // Loader control (independent from script.js)
-    window.addEventListener('load', () => {
-      document.querySelector('.letter-loader').classList.add('hide');
-      setTimeout(() => {
-        document.querySelector('.letter-loader').style.display = 'none';
-        document.querySelector('.page-content').style.opacity = '1';
-      }, 600); // match animation timing
-    });
-  </script>
-</body>
+    <iframe src="music.html" id="music-frame"></iframe>
+    <script src="script.js" defer></script>
+  </body>
 </html>
