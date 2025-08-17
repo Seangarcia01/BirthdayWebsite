@@ -8,7 +8,7 @@ html, body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #0d0d0d, #1a001a, #330033, #4d004d);
   background-size: 400% 400%;
-  animation: bgPulse 30s ease infinite; /* slower than before */
+  animation: bgPulse 30s ease infinite;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,10 +22,11 @@ html, body {
 
 .message-box {
   position: relative;
-  padding: 3rem 4rem;        /* breathing space around text */
-  border-radius: 0;          /* make it stretch edge-to-edge */
-  width: 100%;
-  height: 100%;
+  padding: 3rem 4rem;
+  border-radius: 20px;
+  width: 90%;              /* leave edges for background */
+  height: auto;            /* expand with content */
+  max-height: 90%;         /* never exceed screen */
   text-align: center;
   color: #fff;
   font-size: 1.4rem;
@@ -39,12 +40,11 @@ html, body {
   );
   background-size: 400% 400%;
   animation: bgPulseBox 60s ease infinite;
-  box-shadow: inset 0 0 30px rgba(255, 0, 255, 0.25);
-  overflow-y: auto;          /* scroll if text is long */
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.25);
+  overflow: visible;        /* remove scrolling */
   z-index: 2;
 }
 
-/* Separate animation so it moves slower than the page */
 @keyframes bgPulseBox {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -52,18 +52,18 @@ html, body {
 }
 
 .message-box::before {
-  content: none; /* remove the blurred background layer entirely */
+  content: none;
 }
 
 .message-box h1 {
   margin-bottom: 2rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
 }
 
 .message-box p {
-  font-size: 1.5rem;
-  max-width: 900px;          /* keep text centered and not too wide */
+  font-size: 1.3rem;
+  max-width: 95%;
   margin: 0 auto;
   line-height: 1.8;
 }
@@ -123,25 +123,25 @@ html, body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .message-box {
+    width: 95%;
     padding: 2rem;
-    max-width: 90vw;
   }
   .message-box h1 {
     font-size: 2rem;
   }
   .message-box p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
   .message-box {
+    width: 96%;
     padding: 1.25rem;
     border-radius: 14px;
-    max-width: 92vw;
   }
   .message-box h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
   .message-box p {
     font-size: 1rem;
