@@ -41,20 +41,24 @@ body.fade-in {
 }
 
 .reason-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
-  font-size: 1.1rem;
-  box-shadow: 0 0 15px rgba(255, 192, 203, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeInUp 0.6s ease forwards;
-  opacity: 0;
-  display: flex;               /* make content flexible */
-  flex-direction: column;      /* keep text stacked */
-  justify-content: center;     /* center vertically */
+  width: 280px;   /* fits longest sentence */
+  height: 90px;   /* enough for 2 lines of text */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  height: 220px;               /* fixed card height */
-  max-width: 250px;            /* optional: keeps them uniform in width */
+  font-size: 16px;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reason-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .reason-card:nth-child(1) { animation-delay: 0.1s; }
@@ -65,11 +69,6 @@ body.fade-in {
 .reason-card:nth-child(6) { animation-delay: 0.6s; }
 .reason-card:nth-child(7) { animation-delay: 0.7s; }
 .reason-card:nth-child(8) { animation-delay: 0.8s; }
-
-.reason-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 192, 203, 0.3);
-}
 
 @keyframes fadeInUp {
   0% {
